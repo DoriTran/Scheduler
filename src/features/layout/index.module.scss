@@ -1,0 +1,14 @@
+@import "index.scss";
+
+.mainLayout {
+  width: 100vw;
+  height: 100vh;
+  @include flexRow;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .appContent {
+    @include flexCol;
+    flex-grow: 1;
+  }
+}

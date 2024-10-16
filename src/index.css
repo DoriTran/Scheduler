@@ -1,13 +1,119 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+:root {
+  /* Color: */
+  --background: #FEFEFE;
+  --text: #43000A;
+  --text-contrast: #FDF6DA;
+  --primary: #F7B1A9;
+  --primary-dark: #BB5D51;
+  --primary-light: #FED9DC;
+  --secondary: #DEB47D;
+  --secondary-dark: #A16841;
+  --secondary-light: #FCD3A8;
+  --alternative: #A8D5F1;
+
+  /* Notes Color: */
+  --red-pastel: #FFDDD8;
+  --red-highlight: #F3A1A1;
+  --red-important: #A52A2A;
+
+  --coral-pastel: #FFB3B3;
+  --coral-highlight: #FF9A9A;
+  --coral-important: #FF5C5C;
+
+  --pink-pastel: #FDCEDF;
+  --pink-highlight: #FFBAD5;
+  --pink-important: #FF90BC;
+
+  --berry-pastel: #F0B2C7;
+  --berry-highlight: #E69AB2;
+  --berry-important: #C54B76;
+
+  --peach-pastel: #FFEAD5;
+  --peach-highlight: #FFC5A6;
+  --peach-important: #D36F4F;
+
+  --orange-pastel: #FFE3C4;
+  --orange-highlight: #F5B97F;
+  --orange-important: #C85A00;
+
+  --copper-pastel: #D9B78C;
+  --copper-highlight: #C89F73;
+  --copper-important: #8C5B3A;
+
+  --yellow-pastel: #FFF8B5;
+  --yellow-highlight: #F7E28A;
+  --yellow-important: #C8A200;
+
+  --gold-pastel: #F6E8A0;
+  --gold-highlight: #F6CF7F;
+  --gold-important: #FABC3F;
+
+  --beige-pastel: #F9F7E1;
+  --beige-highlight: #E3D6B0;
+  --beige-important: #AA8855;
+
+  --green-pastel: #D9F3D1;
+  --green-highlight: #A4D89B;
+  --green-important: #3D7045;
+
+  --sage-pastel: #E1E7D1;
+  --sage-highlight: #C1CE9C;
+  --sage-important: #68785A;
+
+  --mint-pastel: #D6F8E9;
+  --mint-highlight: #9BE6D1;
+  --mint-important: #3C8B6D;
+
+  --teal-pastel: #C0ECEA;
+  --teal-highlight: #8ACDC9;
+  --teal-important: #317C7C;
+
+  --cyan-pastel: #B3E7F3;
+  --cyan-highlight: #8ED0E6;
+  --cyan-important: #0097A7;
+
+  --blue-pastel: #D4E8F6;
+  --blue-highlight: #A0D1F1;
+  --blue-important: #4682B4;
+
+  --navy-pastel: #C7D7EB;
+  --navy-highlight: #92B2D4;
+  --navy-important: #2F4F6F;
+
+  --purple-pastel: #EBD9F0;
+  --purple-highlight: #C9A6D8;
+  --purple-important: #5D3D89;
+
+  --lavender-pastel: #E6D6E7;
+  --lavender-highlight: #D8A2D2;
+  --lavender-important: #A85CC2;
+
+  --brown-pastel: #EED8C0;
+  --brown-highlight: #C9A575;
+  --brown-important: #704531;
+
+  --maroon-pastel: #D4A8A8;
+  --maroon-highlight: #AD7070;
+  --maroon-important: #660000;
+
+  --grey-pastel: #E9E6E6;
+  --grey-highlight: #B5B5B5;
+  --grey-important: #5A5A5A;
+
+  --black-pastel: #F0F0F0;
+  --black-highlight: #CFCFCF;
+  --black-important: #000000;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Mali", 'Comic Sans MS', 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

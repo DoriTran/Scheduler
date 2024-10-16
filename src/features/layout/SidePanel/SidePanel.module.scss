@@ -1,0 +1,17 @@
+@import "index.scss";
+
+.container {
+  width: $sidebar;
+  height: 100vh;
+  background-color: var(--primary-light);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+
+  @include flexCol;
+  justify-content: flex-start;
+  gap: 50px;
+
+  .title {
+    font-size: $size40;
+    color: var(--text);
+  }
+}
