@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Fade, Popover } from "@mui/material"; // Ensure you have Material-UI installed
-import ApScrollbar from "./ApScrollbar"; // Adjust this path according to your file structure
+import ApScrollbar from "components/ApScrollbar/ApScrollbar";
 
 const ApFlyout = ({
   anchor,
