@@ -35,6 +35,23 @@ const useStoreNotes = create(
               : [],
           },
         })),
+
+      moveNote: (from, to, at) =>
+        set((state) => {
+          const noteToMove = state.allNotes[from]?.[at];
+          if (!noteToMove) return state;
+
+          const updatedSource = state.allNotes[from].filter((_, index) => index !== at);
+          const updatedDestination = [...(state.allNotes[to] || []), noteToMove].sort((a, b) => a.time - b.time);
+
+          return {
+            allNotes: {
+              ...state.allNotes,
+              [from]: updatedSource,
+              [to]: updatedDestination,
+            },
+          };
+        }),
     }),
     {
       name: "notes",

@@ -1,8 +1,19 @@
 import styles from "./index.module.scss";
-import DayTab from "./week/DayTab/DayTab";
+import WeekView from "./week/WeekView";
+
+const MonthView = <div>MonthView</div>;
+const YearView = <div>YearView</div>;
 
 const Schedule = () => {
-  return <DayTab day="18/10/2024" />;
+  const view = "week";
+
+  return (
+    <div className={styles.container}>
+      {view === "week" && <WeekView />}
+      {view === "month" && <MonthView />}
+      {view === "year" && <YearView />}
+    </div>
+  );
 };
 
 export default Schedule;

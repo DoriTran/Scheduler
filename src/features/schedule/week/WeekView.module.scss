@@ -1,0 +1,7 @@
+@import "index.scss";
+
+.weekViewContainer {
+  @include flexRow;
+  height: 100%;
+  gap: 10px;
+}

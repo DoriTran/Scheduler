@@ -1,9 +1,11 @@
 @import "index.scss";
 
 .dayContainer {
-  width: 12.5%;
+  width: 13%;
+  height: 100%;
   @include flexCol;
-  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 25px;
   gap: 12px;
 
   .numday {
@@ -18,5 +20,6 @@
     @include flexCol;
     align-items: flex-start;
     gap: 8px;
+    width: 100%;
   }
 }

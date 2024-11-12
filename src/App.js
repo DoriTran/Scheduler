@@ -1,4 +1,4 @@
-import { Layout, Schedule } from "features";
+import { Layout, Schedule, Test } from "features";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 const App = () => {
@@ -8,6 +8,7 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Navigate to="/schedule" />} />
           <Route path="/schedule" element={<Schedule />} />
+          <Route path="/test" element={<Test />} />
           <Route path="*" element={<Navigate to="/schedule" replace />} />
         </Route>
       </Routes>

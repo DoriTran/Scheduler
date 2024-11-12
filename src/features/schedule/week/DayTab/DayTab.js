@@ -15,15 +15,15 @@ const DayTab = ({ day }) => {
     };
   }, [day]);
 
-  const { notes, addNote } = useStoreNotes(
-    useShallow((state) => ({ notes: state.allNotes["28/10/2024"], addNote: state.addNote }))
+  const { notes, addNote, moveNote } = useStoreNotes(
+    useShallow((state) => ({ notes: state.allNotes[day], addNote: state.addNote, moveNote: state.moveNote }))
   );
-  console.log(notes);
 
   useEffect(() => {
     if (!notes?.length) {
-      addNote("28/10/2024", { name: "Test 1", time: "1030", description: "", color: "pink" });
-      addNote("28/10/2024", { name: "Test 2", time: "1230", description: "Test description", color: "red" });
+      addNote(day, { name: "A", time: "1030", description: "", color: "pink" });
+      addNote(day, { name: "B", time: "1230", description: "Test description", color: "red" });
+      addNote(day, { name: "C", time: "1230", description: "Test description", color: "green" });
     }
   }, []);
 
@@ -32,10 +32,12 @@ const DayTab = ({ day }) => {
       <div className={styles.numday} style={{ color: `var(--text${!isToday ? "-silver" : ""})` }}>
         {numday}
       </div>
-      <div className={styles.weekday}>{weekday}</div>
+      <div className={styles.weekday} style={{ color: `var(--text${!isToday ? "-silver" : ""})` }}>
+        {weekday}
+      </div>
       <div className={styles.noteWrapper}>
         {notes?.map((eachNote, index) => (
-          <NoteCard key={`${day}-${eachNote.time}-${index}`} {...eachNote} />
+          <NoteCard key={`${day}-${eachNote.time}-${index}`} day={day} at={index} {...eachNote} />
         ))}
       </div>
     </div>
