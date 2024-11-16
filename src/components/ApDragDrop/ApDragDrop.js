@@ -87,8 +87,7 @@ const ApDragDrop = ({
       element: el,
       dragHandle,
       getInitialData: (event) => (typeof data === "function" ? data(event) : data),
-      getInitialDataForExternal: (event) =>
-        typeof externalData === "function" ? externalData(event) : externalData,
+      getInitialDataForExternal: (event) => (typeof externalData === "function" ? externalData(event) : externalData),
       canDrag,
       onDragStart: (event) => {
         setDragging(true);
@@ -154,8 +153,7 @@ const ApDragDrop = ({
 
   useEffect(() => {
     const el = ref.current;
-    const willApplyDropLogic =
-      dropData || canDrop || onCatch || onDragEnter || onDragLeave || dropEffect || dropSticky;
+    const willApplyDropLogic = dropData || canDrop || onCatch || onDragEnter || onDragLeave || dropEffect || dropSticky;
 
     if (!el || !willApplyDropLogic) return;
     return dropTargetForElements({

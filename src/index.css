@@ -2,17 +2,17 @@
 
 :root {
   /* Color: */
-  --background: #FEFEFE;
+  --background: #FDF6DA;
+  --card-background: #FEFEFE;
   --text: #43000A;
   --text-contrast: #FDF6DA;
-  --text-silver: #898989;
-  --primary: #F7B1A9;
-  --primary-dark: #BB5D51;
+  --text-low: #898989;
+  --primary: #DEB47D;
+  --primary-dark: #A16841;
   --primary-light: #FED9DC;
   --secondary: #DEB47D;
   --secondary-dark: #A16841;
   --secondary-light: #FCD3A8;
-  --alternative: #A8D5F1;
 
   /* Notes Color: */
   --red-pastel: #FFDDD8;
@@ -106,6 +106,18 @@
   --black-pastel: #F0F0F0;
   --black-highlight: #CFCFCF;
   --black-important: #000000;
+
+  /* Time period color: */
+  --midnight: #003366;
+  --midnight-pastel: #dfebfc;
+  --morning: #ffcc00;
+  --morning-pastel: #fffbe2;
+  --noon: #ff812e;
+  --noon-pastel: #ffe8d9;
+  --evening: #EA9ABB;
+  --evening-pastel: #F6DFEB;
+  --night: #8e44ad;
+  --night-pastel: #f8e4ff;
 }
 
 * {

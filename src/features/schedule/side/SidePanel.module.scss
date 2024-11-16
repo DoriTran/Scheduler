@@ -1,0 +1,7 @@
+@import "index.scss";
+
+.sidePanelContainer {
+  @include flexCol;
+  justify-content: flex-start;
+  gap: 25px;
+}

@@ -2,5 +2,14 @@
 
 .container {
   width: 100%;
-  height: calc(100vh - $navbar);
+  height: 100vh;
+  @include flexRow;
+  justify-content: flex-start;
+  background-color: var(--background);
+}
+
+.cardWrapper {
+  background-color: var(--card-background);
+  border-radius: 25px;
+  border: 10px solid var(--primary-dark);
 }

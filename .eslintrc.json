@@ -36,7 +36,7 @@
     "no-param-reassign": "off",
     "no-plusplus": "off",
     "class-methods-use-this": "off",
-    "max-len": ["error", { "code": 115 }],
+    "max-len": ["error", { "code": 125 }],
     "react/button-has-type": "off",
     "import/extensions": "off",
     "react/require-default-props": "off",

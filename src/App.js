@@ -1,11 +1,11 @@
-import { Layout, Schedule, Test } from "features";
+import { Schedule, Test } from "features";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/">
           <Route index element={<Navigate to="/schedule" />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/test" element={<Test />} />

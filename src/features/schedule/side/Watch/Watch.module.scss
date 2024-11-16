@@ -1,0 +1,35 @@
+@import "index.scss";
+
+.timeWrapper {
+  width: 250px;
+  height: 125px;
+  @include flexCol;
+  color: var(--text);
+  margin-top: 15px;
+
+  .period {
+    margin-top: -80px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    @include flexCol;
+    border: 10px solid var(--primary-dark);
+    background-color: var(--card-background);
+  }
+
+  .time {
+    cursor: pointer;
+    @include flexRow;
+    align-items: flex-end;
+    gap: 5px;
+
+    .hhmm {
+      font-size: 64px;
+      line-height: 64px;
+    }
+
+    .ampm {
+      font-size: 24px;
+    }
+  }
+}

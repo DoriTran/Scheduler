@@ -8,7 +8,7 @@ const useStoreConfig = create(
       view: "week",
 
       switchAmPm: () => set((state) => ({ ...state, ampm: !state.ampm })),
-      setView: (payload) => set({ ...state, view: payload }),
+      setView: (payload) => set((state) => ({ ...state, view: payload })),
     }),
     {
       name: "config",
