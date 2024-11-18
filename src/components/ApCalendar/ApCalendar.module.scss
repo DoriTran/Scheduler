@@ -1,0 +1,62 @@
+@import "index.scss";
+
+.calendar {
+  width: 90%;
+  max-width: 500px;
+  @include flexCol;
+
+  .header {
+    @include flexRow;
+    justify-content: space-between;
+  }
+
+  .body {
+    width: 100%;
+    @include flexRow;
+    flex-wrap: wrap;
+
+    .weekdayCell {
+      width: 14%;
+      aspect-ratio: 1;
+      @include flexCol;
+      color: var(--text);
+      text-align: center;
+      user-select: none;
+    }
+
+    .cell {
+      width: 13%;
+      aspect-ratio: 1;
+      @include flexCol;
+      color: var(--text);
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+      margin: 0.5%;
+      user-select: none;
+    }
+
+    .cell:hover {
+      background-color: var(--primary-light);
+      color: var(--text);
+    }
+
+    .outMonth {
+      color: var(--text-low);
+    }
+
+    .today {
+      border: 2px solid var(--primary-dark);
+    }
+
+    .selected {
+      background-color: var(--primary-dark);
+      color: var(--text-contrast);
+    }
+
+    .selected:hover {
+      background-color: var(--primary-dark);
+      color: var(--text-contrast);
+    }
+  }
+}

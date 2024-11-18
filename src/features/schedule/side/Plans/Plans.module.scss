@@ -1,0 +1,7 @@
+@import "index.scss";
+
+.plansWrapper {
+  width: calc($sidebar - 30px);
+  padding: 10px 0;
+  @include flexCol;
+}

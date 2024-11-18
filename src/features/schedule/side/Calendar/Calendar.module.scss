@@ -1,0 +1,19 @@
+@import "index.scss";
+
+.calendarWrapper {
+  width: calc($sidebar - 30px);
+  padding: 10px 0;
+  @include flexCol;
+
+  .calendar {
+    @include flexCol;
+    padding: 0 20px;
+    padding-bottom: 10px;
+    user-select: none;
+
+    .date {
+      font-size: 20px;
+      color: var(--text);
+    }
+  }
+}

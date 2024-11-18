@@ -1,11 +1,12 @@
 @import "index.scss";
 
 .timeWrapper {
-  width: 250px;
+  width: calc($sidebar - 30px);
   height: 125px;
   @include flexCol;
   color: var(--text);
   margin-top: 15px;
+  user-select: none;
 
   .period {
     margin-top: -80px;
