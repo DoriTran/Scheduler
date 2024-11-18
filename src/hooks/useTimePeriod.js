@@ -48,7 +48,7 @@ function useTimePeriod() {
     return () => clearTimeout(timerId);
   }, []);
 
-  return "midnight"; // timeOfDay;
+  return timeOfDay;
 }
 
 export default useTimePeriod;
