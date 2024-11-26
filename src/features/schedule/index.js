@@ -8,12 +8,11 @@ const YearView = <div>YearView</div>;
 
 const Schedule = () => {
   const view = "week";
-  const period = useTimePeriod();
 
   return (
-    <div className={styles.container} style={{ backgroundColor: `var(--${period}-pastel)` }}>
+    <div className={styles.container}>
       <SidePanel />
-      {/* {view === "week" && <WeekView />} */}
+      {view === "week" && <WeekView />}
       {view === "month" && <MonthView />}
       {view === "year" && <YearView />}
     </div>

@@ -3,7 +3,8 @@
 .sidePanelContainer {
   @include flexCol;
   justify-content: flex-start;
+  min-height: 100vh;
   gap: 15px;
   width: $sidebar;
-  padding-top: 15px;
+  padding-top: 65px;
 }

@@ -2,6 +2,8 @@
 
 .weekViewContainer {
   @include flexRow;
-  height: 100%;
+  height: 95vh;
+  width: calc(100vw - $sidebar);
   gap: 10px;
+  margin: 15px 0;
 }

@@ -5,7 +5,8 @@
   height: 100vh;
   @include flexRow;
   justify-content: flex-start;
-  background-color: var(--background);
+  background-color: white !important;
+  overflow: hidden;
 }
 
 .cardWrapper {
