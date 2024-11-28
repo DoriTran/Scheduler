@@ -1,2 +1,9 @@
-export { default as Schedule } from "./schedule";
-export { default as Test } from "./test";
+const Schedule = () => {
+  return (
+    <div className={styles.page}>
+      <aside className={styles.side} />
+    </div>
+  );
+};
+
+export default Schedule;

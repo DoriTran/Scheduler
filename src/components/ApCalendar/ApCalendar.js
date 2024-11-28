@@ -6,7 +6,6 @@ import clsx from "clsx";
 import styles from "./ApCalendar.module.scss";
 
 const CalendarCell = ({ label, outMonth, isToday, isSelected, onClick }) => {
-  if (isToday) console.log(label);
   return (
     <div
       className={clsx(typeof label === "string" ? styles.weekdayCell : styles.cell, {

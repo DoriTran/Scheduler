@@ -6,10 +6,8 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/">
-          <Route index element={<Navigate to="/schedule" />} />
-          <Route path="/schedule" element={<Schedule />} />
-          <Route path="/test" element={<Test />} />
-          <Route path="*" element={<Navigate to="/schedule" replace />} />
+          <Route index element={<Schedule />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
     </BrowserRouter>
