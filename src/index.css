@@ -4,6 +4,8 @@
   /* Color: */
   --background: #FEFEFE;
   --background-low: rgba(254, 254, 254, 0.35);
+  --card-background: #FFFFFF;
+  --card-off-background: rgba(248, 237, 227, 0.35);
   --text: #43000A;
   --text-contrast: #FDF6DA;
   --text-low: #B2A59B;
@@ -11,7 +13,43 @@
   --primary-dark: #8D493A;
   --primary-light: #F8EDE3;
 
-  /* Notes Color: */
+  /* Zone Colors */
+  --midnight: #7196BA;
+  --midnight-dark: #003366;
+  --midnight-text: #FFF7D1;
+  --midnight-low: rgba(113, 150, 186, 0.6);
+  --midnight-fading: #9ECFFF;
+  --midnight-fading-to: rgba(113, 150, 186, 0.1);
+
+  --morning: #fffbe2;
+  --morning-dark: #ffcc00;
+  --morning-text: #ffcc00;
+  --morning-low: rgba(255, 204, 0, 0.6);
+  --morning-fading: #ffcc00;
+  --morning-fading-to: rgba(255, 204, 0, 0.1);
+
+  --noon: #FFD6BC;
+  --noon-dark: #ff812e;
+  --noon-text: #ff812e;
+  --noon-low: rgba(255, 129, 46, 0.6);
+  --noon-fading: #ff812e;
+  --noon-fading-to: rgba(255, 129, 46, 0.1);
+
+  --evening: #FFD1E9;
+  --evening-dark: #DB6D9A;
+  --evening-text: #DB6D9A;
+  --evening-low: rgba(219, 109, 154, 0.6);
+  --evening-fading: #DB6D9A;
+  --evening-fading-to: rgba(219, 109, 154, 0.1);
+
+  --night: #E5D9F2;
+  --night-dark: #8e44ad;
+  --night-text: #8e44ad;
+  --night-low: rgba(142, 68, 173, 0.6);
+  --night-fading: #8e44ad;
+  --night-fading-to: rgba(142, 68, 173, 0.1);
+
+  /* Notes Colors: */
   --red-pastel: #FFDDD8;
   --red-highlight: #F3A1A1;
   --red-important: #A52A2A;
@@ -99,22 +137,6 @@
   --grey-pastel: #E9E6E6;
   --grey-highlight: #B5B5B5;
   --grey-important: #5A5A5A;
-
-  --black-pastel: #F0F0F0;
-  --black-highlight: #CFCFCF;
-  --black-important: #000000;
-
-  /* Time period color: */
-  --midnigh-highlightt: #003366;
-  --midnight: #7196BA;
-  --morning-highlight: #ffcc00;
-  --morning: #fffbe2;
-  --noon-highlight: #ff812e;
-  --noon: #FFD6BC;
-  --evening-highlight: #DB6D9A;
-  --evening: #FFD1E9;
-  --night-highlight: #8e44ad;
-  --night: #E5D9F2;
 }
 
 * {
