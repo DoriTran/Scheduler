@@ -1,4 +1,6 @@
 import styles from "./index.module.scss";
+import MoveBtnByView from "./MoveBtnByView/MoveBtnByView";
+import ViewSelection from "./ViewSelection/ViewSelection";
 
 const NavBar = () => {
   return (
@@ -6,7 +8,7 @@ const NavBar = () => {
       <div className={styles.leftTitle}>November 2024</div>
       <div className={styles.rightAction}>
         <MoveBtnByView />
-        <ViewSelecton />
+        <ViewSelection />
       </div>
     </nav>
   );

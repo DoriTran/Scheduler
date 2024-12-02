@@ -21,6 +21,18 @@ $size40: 2.5rem; // 40px
 $size48: 3rem; // 48px
 $size64: 4rem; // 64px
 
+$pxsmall: 12px;
+$pxnormal: 14px;
+$pxmiddle: 16px;
+$pxlarge: 18px;
+$pxmoderate: 20px;
+$pxsize24: 24px;
+$pxsize28: 28px;
+$pxsize32: 32px;
+$pxsize40: 40px;
+$pxsize48: 48px;
+$pxsize64: 64px;
+
 // Global font weights
 $light: 300;
 $regular: 400;
@@ -29,8 +41,8 @@ $semibold: 600;
 $bold: 700;
 
 // Global variables
-$navbar: 70px;
-$sidebar: 300px;
+$navbar: 90px;
+$sidebar: 400px;
 
 // Global common styles
 $cardShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -48,4 +60,21 @@ $cardShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+@mixin absolute($params: ()) {
+  position: absolute;
+
+  @if map-has-key($params, top) {
+    top: map-get($params, top);
+  }
+  @if map-has-key($params, right) {
+    right: map-get($params, right);
+  }
+  @if map-has-key($params, bottom) {
+    bottom: map-get($params, bottom);
+  }
+  @if map-has-key($params, left) {
+    left: map-get($params, left);
+  }
 }

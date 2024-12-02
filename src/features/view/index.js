@@ -1,3 +1,5 @@
+import DayView from "./DayView/DayView";
+import WeekView from "./WeekView/WeekView";
 import styles from "./index.module.scss";
 
 const View = () => {
@@ -6,7 +8,6 @@ const View = () => {
     <div className={styles.view}>
       {view === "day" && <DayView />}
       {view === "week" && <WeekView />}
-      {view === "month" && <MonthView />}
     </div>
   );
 };

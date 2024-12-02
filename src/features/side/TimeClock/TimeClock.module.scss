@@ -1,0 +1,76 @@
+@import "index.scss";
+
+$clockSize: 314px;
+$daySize: 74px;
+$sectorGap: 14px;
+
+.clockContainer {
+  position: relative;
+  @include flexCol;
+  color: var(--text);
+
+  .upperSemiCircle {
+    z-index: 0;
+    @include absolute(
+      (
+        top: 0,
+        left: 0,
+      )
+    );
+    width: $clockSize;
+    height: $clockSize;
+    border-radius: 50%;
+    clip-path: polygon(0% 50%, 100% 50%, 100% 0%, 0% 0%);
+    background-color: var(--background);
+  }
+
+  .upperHolder {
+    z-index: 2;
+    box-shadow: 0px 4px 2px -1px rgba(0, 0, 0, 0.25);
+    width: $clockSize;
+    height: calc($clockSize / 2);
+    @include flexCol;
+
+    .meridiem {
+      font-size: $pxsize32;
+    }
+
+    .time {
+      font-size: $pxsize48;
+      line-height: 30px;
+      padding-bottom: 25px;
+    }
+  }
+
+  .dayHolder {
+    z-index: 3;
+    margin-top: calc($daySize / -2);
+    width: $daySize;
+    height: $daySize;
+    border: 3px solid var(--primary-dark);
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    @include flexCol;
+
+    .dayText {
+      font-size: $pxmoderate;
+    }
+
+    .dayNumber {
+      font-size: $pxsize32;
+    }
+  }
+}
+
+.clockSector {
+  z-index: 1;
+  width: calc($clockSize - $sectorGap * 2);
+  height: calc($clockSize - $sectorGap * 2);
+  border-radius: 50%;
+  @include absolute(
+    (
+      top: $sectorGap,
+      left: $sectorGap,
+    )
+  );
+}

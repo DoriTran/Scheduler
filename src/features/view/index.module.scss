@@ -1,0 +1,6 @@
+@import "index.scss";
+
+.view {
+  max-height: calc(100vh - $navbar);
+  max-width: calc(100vw - $sidebar);
+}

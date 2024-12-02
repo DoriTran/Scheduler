@@ -1,0 +1,12 @@
+@import "index.scss";
+
+.page {
+  position: relative;
+
+  .view {
+    position: absolute;
+    top: 0px;
+    left: $sidebar;
+    @include flexCol;
+  }
+}

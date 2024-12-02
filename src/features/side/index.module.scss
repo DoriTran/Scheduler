@@ -1,0 +1,12 @@
+@import "index.scss";
+
+.side {
+  height: 100vh;
+  max-height: 100vh;
+  width: $sidebar;
+  background-color: var(--primary-light);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+
+  @include flexCol;
+  justify-content: flex-start;
+}

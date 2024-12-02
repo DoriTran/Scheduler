@@ -1,4 +1,4 @@
-import { Schedule, Test } from "features";
+import Schedule from "features";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 const App = () => {
