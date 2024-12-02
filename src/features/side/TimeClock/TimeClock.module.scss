@@ -25,7 +25,7 @@ $sectorGap: 14px;
   }
 
   .upperHolder {
-    z-index: 2;
+    z-index: 3;
     box-shadow: 0px 4px 2px -1px rgba(0, 0, 0, 0.25);
     width: $clockSize;
     height: calc($clockSize / 2);
@@ -43,21 +43,24 @@ $sectorGap: 14px;
   }
 
   .dayHolder {
-    z-index: 3;
+    z-index: 4;
     margin-top: calc($daySize / -2);
     width: $daySize;
     height: $daySize;
     border: 3px solid var(--primary-dark);
     border-radius: 50%;
     background-color: var(--primary-light);
+    box-shadow: $cardShadow;
     @include flexCol;
 
     .dayText {
       font-size: $pxmoderate;
+      line-height: 25px;
     }
 
     .dayNumber {
       font-size: $pxsize32;
+      line-height: 30px;
     }
   }
 }
@@ -67,6 +70,7 @@ $sectorGap: 14px;
   width: calc($clockSize - $sectorGap * 2);
   height: calc($clockSize - $sectorGap * 2);
   border-radius: 50%;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   @include absolute(
     (
       top: $sectorGap,

@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { useTimePeriod } from "hooks";
 import { getPeriodRange } from "utils";
 import styles from "./TimeClock.module.scss";
 
@@ -51,8 +50,7 @@ const Sector = ({ period, startHour, endHour }) => {
   return <div className={styles.clockSector} style={sectorStyles} />;
 };
 
-const ClockSector = () => {
-  const period = "evening"; // useTimePeriod();
+const ClockSector = ({ period }) => {
   const { firstSector, secondSector } = useMemo(() => {
     const range = getPeriodRange(period);
     const hasSecondSector = range[0] < 18 && range[1] > 18;
@@ -69,8 +67,6 @@ const ClockSector = () => {
       }),
     };
   }, [period]);
-
-  console.log(firstSector, secondSector);
 
   return (
     <>
