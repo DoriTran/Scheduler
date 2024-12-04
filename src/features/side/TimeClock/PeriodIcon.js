@@ -2,8 +2,8 @@ import { ApIcon } from "components";
 import { useCurrentTime } from "hooks";
 import { useMemo } from "react";
 
-const distanceToCorner = 44;
-const radius = 113;
+const distanceToCorner = 38;
+const radius = 120;
 
 const getPeriodIconPosition = (time) => {
   const [hours, minutes] = time.split(":").map(Number);
@@ -25,6 +25,7 @@ const PeriodIcon = ({ period }) => {
       transformOrigin: "0 0",
       transform: "translate(-50%, -50%)",
       filter: "drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.35))",
+      transition: "left 0.1s linear, top 0.1s linear",
       ...getPeriodIconPosition(time),
     };
   }, [period, time]);
