@@ -3,7 +3,6 @@ import { useMemoPrev } from "hooks";
 import { useMemo } from "react";
 import styles from "./TimeClock.module.scss";
 
-const transtime = "1s";
 const toRadians = (degrees) => degrees * (Math.PI / 180);
 const isInSundown = (hour) => hour >= 18 || hour < 6;
 const inSameZone = (first, second) => isInSundown(first) === isInSundown(second);
@@ -38,8 +37,7 @@ const sectorClippath = (angle) => {
   return null;
 };
 
-const Sector = ({ period, startHour, endHour, delay }) => {
-  if (delay) console.log(startHour, endHour);
+const Sector = ({ period, startHour, endHour }) => {
   const sector = useMemoPrev(
     (prevSector) => {
       const angle = (endHour - startHour) * 15;
@@ -56,7 +54,7 @@ const Sector = ({ period, startHour, endHour, delay }) => {
           transform: `rotate(${startAngle}deg)`,
           clipPath: sectorClippath(angle),
           backgroundColor: `var(--${period})`,
-          transition: `1s ease-in-out ${delay ? "1s" : ""}`,
+          transition: `1s ease-in-out`,
         },
         startAngle,
         startHour,
@@ -69,7 +67,7 @@ const Sector = ({ period, startHour, endHour, delay }) => {
     }
   );
 
-  return <div className={styles.clockSector} style={sector.style} />;
+  return <div className={styles.sector} style={sector.style} />;
 };
 
 const ClockSector = ({ period }) => {
@@ -89,10 +87,10 @@ const ClockSector = ({ period }) => {
   }, [period]);
 
   return (
-    <>
+    <div className={styles.clockSectors}>
       <Sector period={period} startHour={firstSector.start} endHour={firstSector.end} />
-      <Sector period={period} startHour={secondSector.start} endHour={secondSector.end} delay />
-    </>
+      <Sector period={period} startHour={secondSector.start} endHour={secondSector.end} />
+    </div>
   );
 };
 

@@ -1,5 +1,5 @@
 import { useCurrentTime, useTimePeriod } from "hooks";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import clsx from "clsx";
 import styles from "./TimeClock.module.scss";
 import ClockSector from "./ClockSector";
@@ -16,7 +16,7 @@ const TimeClock = () => {
     <div className={styles.clockContainer}>
       {/* Absolute decoration */}
       <div className={styles.upperSemiCircle} />
-      <ClockSector period="night" />
+      <ClockSector period={period} />
       <PeriodIcon period={period} />
       {/* Main content */}
       <div className={styles.upperHolder}>
