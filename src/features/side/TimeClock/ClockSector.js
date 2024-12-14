@@ -1,12 +1,10 @@
-/* eslint-disable max-len */
 import { getPeriodRange } from "utils";
 import { useMemoPrev } from "hooks";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import styles from "./TimeClock.module.scss";
 
 const transtime = "1s";
 const toRadians = (degrees) => degrees * (Math.PI / 180);
-const toBelow18 = (time) => (time > 18 ? time - 12 : time);
 const isInSundown = (hour) => hour >= 18 || hour < 6;
 const inSameZone = (first, second) => isInSundown(first) === isInSundown(second);
 
@@ -40,7 +38,8 @@ const sectorClippath = (angle) => {
   return null;
 };
 
-const Sector = ({ period, startHour, endHour }) => {
+const Sector = ({ period, startHour, endHour, delay }) => {
+  if (delay) console.log(startHour, endHour);
   const sector = useMemoPrev(
     (prevSector) => {
       const angle = (endHour - startHour) * 15;
@@ -57,7 +56,7 @@ const Sector = ({ period, startHour, endHour }) => {
           transform: `rotate(${startAngle}deg)`,
           clipPath: sectorClippath(angle),
           backgroundColor: `var(--${period})`,
-          transition: `${transtime} ease-in-out`,
+          transition: `1s ease-in-out ${delay ? "1s" : ""}`,
         },
         startAngle,
         startHour,
@@ -69,10 +68,6 @@ const Sector = ({ period, startHour, endHour }) => {
       startHour,
     }
   );
-
-  // useEffect(() => {
-  //   console.log(sector.startAngle);
-  // }, [sector.startAngle]);
 
   return <div className={styles.clockSector} style={sector.style} />;
 };
@@ -87,8 +82,8 @@ const ClockSector = ({ period }) => {
         end: hasSecondSector ? 18 : range[1],
       },
       secondSector: {
-        start: hasSecondSector ? 18 - 12 : range[1] - 12,
-        end: range[1] - 12,
+        start: 6,
+        end: hasSecondSector ? range[1] - 12 : 6,
       },
     };
   }, [period]);
@@ -96,7 +91,7 @@ const ClockSector = ({ period }) => {
   return (
     <>
       <Sector period={period} startHour={firstSector.start} endHour={firstSector.end} />
-      <Sector period={period} startHour={secondSector.start} endHour={secondSector.end} />
+      <Sector period={period} startHour={secondSector.start} endHour={secondSector.end} delay />
     </>
   );
 };
