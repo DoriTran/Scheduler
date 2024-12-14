@@ -16,7 +16,7 @@ const TimeClock = () => {
     <div className={styles.clockContainer}>
       {/* Absolute decoration */}
       <div className={styles.upperSemiCircle} />
-      <ClockSector period="evening" />
+      <ClockSector period="morning" />
       <PeriodIcon period={period} />
       {/* Main content */}
       <div className={styles.upperHolder}>

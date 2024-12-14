@@ -7,8 +7,9 @@ import styles from "./TimeClock.module.scss";
 const transtime = "1s";
 const toRadians = (degrees) => degrees * (Math.PI / 180);
 const toBelow18 = (time) => (time > 18 ? time - 12 : time);
-const isInSundown = (hour) => hour >= 18 && hour < 6;
+const isInSundown = (hour) => hour >= 18 || hour < 6;
 const inSameZone = (first, second) => isInSundown(first) === isInSundown(second);
+
 const sectorClippath = (angle) => {
   if (angle === 0) {
     // 0 degrees → 2 point polygon
@@ -47,8 +48,8 @@ const Sector = ({ period, startHour, endHour }) => {
         startHour === prevSector.startHour
           ? prevSector.startAngle
           : prevSector.startAngle +
-            (startHour - prevSector.startHour + (startHour < prevSector.startHour ? 24 : 0)) * 15 +
-            (inSameZone(startHour, prevSector.startHour) ? 180 : 0);
+            ((startHour === 0 ? 24 : startHour) - prevSector.startHour) * 15 +
+            (!inSameZone(startHour, prevSector.startHour) ? 180 : 0);
 
       return {
         style: {
@@ -82,12 +83,12 @@ const ClockSector = ({ period }) => {
     const hasSecondSector = range[0] < 18 && range[1] > 18;
     return {
       firstSector: {
-        start: toBelow18(range[0]),
-        end: hasSecondSector ? 18 : toBelow18(range[1]),
+        start: range[0],
+        end: hasSecondSector ? 18 : range[1],
       },
       secondSector: {
-        start: hasSecondSector ? 18 - 12 : 6,
-        end: hasSecondSector ? range[1] - 12 : 6,
+        start: hasSecondSector ? 18 - 12 : range[1] - 12,
+        end: range[1] - 12,
       },
     };
   }, [period]);
