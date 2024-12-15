@@ -24,8 +24,8 @@ const PeriodIcon = ({ period }) => {
       zIndex: 2,
       transformOrigin: "0 0",
       transform: "translate(-50%, -50%)",
-      filter: "drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.35))",
-      transition: "left 0.1s linear, top 0.1s linear",
+      filter: "drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.15))",
+      transition: "left 0.5s linear, top 0.5s linear",
       ...getPeriodIconPosition(time),
     };
   }, [period, time]);

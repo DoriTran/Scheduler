@@ -1,0 +1,19 @@
+@import "index.scss";
+
+.nav {
+  height: $navbar;
+  width: 100%;
+  @include flexRow;
+  justify-content: space-between;
+  padding: 0 25px;
+
+  .leftTitle {
+    font-size: $pxsize40;
+    color: var(--primary-dark);
+  }
+
+  .rightAction {
+    @include flexRow;
+    gap: 15px;
+  }
+}

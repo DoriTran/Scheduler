@@ -1,6 +1,7 @@
-import styles from "./index.module.scss";
 import MoveBtnByView from "./MoveBtnByView/MoveBtnByView";
 import ViewSelection from "./ViewSelection/ViewSelection";
+import ConfigSettings from "./ConfigSettings/ConfigSettings";
+import styles from "./index.module.scss";
 
 const NavBar = () => {
   return (
@@ -9,6 +10,7 @@ const NavBar = () => {
       <div className={styles.rightAction}>
         <MoveBtnByView />
         <ViewSelection />
+        <ConfigSettings />
       </div>
     </nav>
   );

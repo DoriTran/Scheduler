@@ -1,0 +1,48 @@
+@import "index.scss";
+
+$indicatorWidth: 100px;
+$indicatorHeight: 40px;
+$totalIndicator: 2;
+$transitionDuration: 0.175s;
+
+.viewSelection {
+  position: relative;
+  @include flexRow;
+  border: 1px solid var(--primary-dark);
+  border-radius: 5px;
+  width: calc($indicatorWidth * $totalIndicator);
+  height: $indicatorHeight;
+  font-size: $pxsize24;
+  overflow: hidden;
+  user-select: none;
+
+  .indicator {
+    z-index: 1;
+    // prettier-ignore
+    @include absolute((top: 0, left: 0));
+    width: $indicatorWidth;
+    height: $indicatorHeight;
+    background-color: var(--primary-dark);
+    transition: $transitionDuration linear;
+    display: flex;
+    overflow: hidden;
+
+    .item {
+      // prettier-ignore
+      @include absolute((left: 0, top: 0));
+      color: var(--text-contrast);
+      transition: $transitionDuration linear;
+      cursor: unset;
+    }
+  }
+
+  .item {
+    min-width: $indicatorWidth;
+    height: $indicatorHeight;
+    line-height: $indicatorHeight;
+    text-align: center;
+    vertical-align: middle;
+    color: var(--primary-dark);
+    cursor: pointer;
+  }
+}

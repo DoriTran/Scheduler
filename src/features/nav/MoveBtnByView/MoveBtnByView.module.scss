@@ -1,0 +1,23 @@
+@import "index.scss";
+
+.moveBtnByView {
+  @include flexRow;
+  gap: 5px;
+  user-select: none;
+
+  .currentValue {
+    @include flexCol;
+    color: var(--primary-dark);
+    min-width: 115px;
+
+    .upper {
+      font-size: $pxnormal;
+      line-height: 15px;
+    }
+
+    .main {
+      font-size: $pxsize24;
+      line-height: 25px;
+    }
+  }
+}

@@ -1,22 +1,33 @@
 @import "index.scss";
 
 .calendar {
-  width: 90%;
+  width: 80%;
   max-width: 500px;
   @include flexCol;
 
   .header {
     @include flexRow;
     justify-content: space-between;
+    width: 100%;
+    padding: 0 15px;
+
+    .title {
+      color: var(--text);
+      font-size: $pxsize28;
+      line-height: 25px;
+    }
   }
 
   .body {
     width: 100%;
     @include flexRow;
     flex-wrap: wrap;
+    font-size: $pxlarge;
+    padding-top: 15px;
 
     .weekdayCell {
       width: 14%;
+      height: 30px;
       aspect-ratio: 1;
       @include flexCol;
       color: var(--text);
@@ -25,38 +36,40 @@
     }
 
     .cell {
-      width: 13%;
+      width: 12.5%;
       aspect-ratio: 1;
       @include flexCol;
-      color: var(--text);
       cursor: pointer;
       border-radius: 50%;
       transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
-      margin: 0.5%;
+      margin: 0.8%;
       user-select: none;
+      border-radius: 5px;
+      background-color: var(--background);
     }
 
     .cell:hover {
-      background-color: var(--primary-light);
+      background-color: var(--primary) !important;
       color: var(--text);
     }
 
     .outMonth {
       color: var(--text-low);
+      background-color: var(--background-low);
     }
 
     .today {
-      border: 2px solid var(--primary-dark);
+      background-color: var(--primary-dark);
+      color: var(--text-contrast);
     }
 
     .selected {
-      background-color: var(--primary-dark);
-      color: var(--text-contrast);
+      border: 2px solid var(--primary-dark);
     }
 
     .selected:hover {
       background-color: var(--primary-dark);
-      color: var(--text-contrast);
+      color: var(--text);
     }
   }
 }

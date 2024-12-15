@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import moment from "moment";
-import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import ApIcon from "components/ApIcon/ApIcon";
 import clsx from "clsx";
 import styles from "./ApCalendar.module.scss";
@@ -15,7 +15,7 @@ const CalendarCell = ({ label, outMonth, isToday, isSelected, onClick }) => {
       })}
       onClick={onClick}
     >
-      {label}
+      <div>{label}</div>
     </div>
   );
 };
@@ -26,7 +26,7 @@ const ApCalendar = ({
   setViewValue,
   onChange,
   title = moment().format("DD/MM/YYYY"),
-  weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+  weekDays = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
 }) => {
   const [view, setView] = useState({
     month: moment().month(),
@@ -95,13 +95,13 @@ const ApCalendar = ({
   return (
     <div className={styles.calendar}>
       <div className={styles.header}>
-        <ApIcon icon={faCaretLeft} onClick={() => changeMonth("prev")} />
+        <ApIcon icon={faAngleLeft} onClick={() => changeMonth("prev")} color="var(--primary-dark)" size={35} />
         <div className={styles.title} onClick={() => changeMonth("back")}>
           {title}
         </div>
-        <ApIcon icon={faCaretRight} onClick={() => changeMonth("next")} />
+        <ApIcon icon={faAngleRight} onClick={() => changeMonth("next")} color="var(--primary-dark)" size={35} />
       </div>
-      <div className={styles.body}>
+      <div className={styles.body} id={`${view.month} - ${view.year}`}>
         {weekDays.map((eachWeekDay, index) => (
           <CalendarCell key={`${eachWeekDay}-${index}`} label={eachWeekDay} />
         ))}

@@ -11,13 +11,9 @@ $sectorGap: 10px;
   user-select: none;
 
   .upperSemiCircle {
+    // prettier-ignore
+    @include absolute((top: 0, left: 0));
     z-index: 0;
-    @include absolute(
-      (
-        top: 0,
-        left: 0,
-      )
-    );
     width: $clockSize;
     height: $clockSize;
     border-radius: 50%;
@@ -73,28 +69,20 @@ $sectorGap: 10px;
 }
 
 .clockSectors {
+  // prettier-ignore
+  @include absolute((top: 0, left: 0));
   width: 100%;
   height: calc(100% - $daySize / 2);
   z-index: 1;
   overflow: hidden;
-  @include absolute(
-    (
-      top: 0,
-      left: 0,
-    )
-  );
 
   .sector {
+    // prettier-ignore
+    @include absolute((top: $sectorGap, left: $sectorGap));
     width: calc($clockSize - $sectorGap * 2);
     height: calc($clockSize - $sectorGap * 2);
     border-radius: 50%;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     cursor: pointer;
-    @include absolute(
-      (
-        top: $sectorGap,
-        left: $sectorGap,
-      )
-    );
   }
 }

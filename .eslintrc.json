@@ -17,7 +17,7 @@
   },
   "plugins": ["react"],
   "rules": {
-    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "prettier/prettier": ["error", { "endOfLine": "auto", "bracketSameLine": false }],
     "react/react-in-jsx-scope": "off",
     "import/prefer-default-export": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", "ts", "tsx"] }],

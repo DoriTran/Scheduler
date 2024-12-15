@@ -1,5 +1,7 @@
+import styles from "./SideDivider.module.scss";
+
 const SideDivider = () => {
-  return <h1>SideDivider</h1>;
+  return <div className={styles.sideDivider} />;
 };
 
 export default SideDivider;
