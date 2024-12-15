@@ -21,7 +21,7 @@ const MoveBtnByView = () => {
     const firstWeek = upperMonth.startOf("month").isoWeekday() <= 4 ? upperMonth : upperMonth.add(1, "week");
     const firstMonday = firstWeek.clone().startOf("isoWeek");
     const daysFromFirstMonday = moment(value).diff(firstMonday, "days");
-    const weekOfMonth = Math.ceil(daysFromFirstMonday / 7) + 1;
+    const weekOfMonth = Math.floor(daysFromFirstMonday / 7) + 1;
 
     return {
       upper: upperMonth.format("MMMM"),
