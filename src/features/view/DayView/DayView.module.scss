@@ -1,0 +1,6 @@
+@import "index.scss";
+
+.dayView {
+  @include flexRow;
+  gap: 5px;
+}

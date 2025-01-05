@@ -1,0 +1,24 @@
+@import "index.scss";
+
+.hoverGap {
+  opacity: 0.6;
+  width: 95%;
+  border-radius: 5px;
+  border: 3px dotted;
+  @include flexCol;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  .description {
+    @include flexCol;
+    gap: 5px;
+
+    .period {
+      font-size: $pxmoderate;
+    }
+
+    .gap {
+      font-size: $pxmiddle;
+    }
+  }
+}

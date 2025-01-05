@@ -3,6 +3,7 @@ const getMomentAsObject = (mm) => {
     day: mm.date(),
     month: mm.month(),
     year: mm.year(),
+    weekDay: mm.format("dddd"),
   };
 };
 

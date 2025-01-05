@@ -1,7 +1,7 @@
 import React from "react";
 import { Tooltip, Typography } from "@mui/material";
 
-const ApTooltip = ({ tooltip, divWrapper, componentsProps, children, ...restProps }) => {
+const ApTooltip = ({ tooltip, wrapContent, componentsProps, children, ...restProps }) => {
   return (
     <Tooltip
       title={<Typography sx={{ fontFamily: "'Poppins', sans-serif", fontSize: "0.75rem" }}>{tooltip}</Typography>}
@@ -36,7 +36,7 @@ const ApTooltip = ({ tooltip, divWrapper, componentsProps, children, ...restProp
       }}
       {...restProps}
     >
-      {divWrapper ? <div>{children}</div> : children}
+      {wrapContent ? <div>{children}</div> : children}
     </Tooltip>
   );
 };

@@ -1,8 +1,19 @@
+@import "index.scss";
+
 .sideDivider {
-  background-color: var(--primary-dark);
-  width: 90%;
-  min-height: 8px;
-  border: 3px solid #fff;
-  border-radius: 25px;
-  margin: 20px 0;
+  @include flexRow;
+  width: 100%;
+
+  .thumb {
+    transition: transform 0.25s ease-in-out;
+  }
+
+  .divider {
+    background-color: var(--primary-dark);
+    width: 85%;
+    min-height: 8px;
+    border: 3px solid #fff;
+    border-radius: 25px;
+    margin: 20px 0;
+  }
 }

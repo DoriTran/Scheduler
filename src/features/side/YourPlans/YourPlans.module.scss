@@ -1,0 +1,13 @@
+@import "index.scss";
+
+.yourPlans {
+  width: 80%;
+  @include flexCol;
+  gap: 25px;
+
+  .plans {
+    width: 100%;
+    @include flexCol;
+    gap: 8px;
+  }
+}

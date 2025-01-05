@@ -1,14 +1,17 @@
 import { useMemo, useState } from "react";
-import { useStoreConfig } from "store";
+import { useStoreConfig, useStoreView } from "store";
 import { ApIcon } from "components";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { getDateSuffix, getMomentAsObject, getMonthThatWeekBelongTo } from "utils";
+import { useShallow } from "zustand/react/shallow";
 import moment from "moment";
 import styles from "./MoveBtnByView.module.scss";
 
 const MoveBtnByView = () => {
   const view = useStoreConfig((state) => state.view);
-  const [value, setValue] = useState(getMomentAsObject(moment()));
+  const { value, setValue } = useStoreView(
+    useShallow((state) => ({ value: state.viewValue, setValue: state.setViewValue }))
+  );
 
   const next = () => setValue(getMomentAsObject(moment(value).add(view === "day" ? 1 : 7, "day")));
   const back = () => setValue(getMomentAsObject(moment(value).subtract(view === "day" ? 1 : 7, "day")));

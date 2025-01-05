@@ -1,57 +1,79 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+const asNum = (time) => parseInt(time.replace(":", ""), 10);
+const sortNote = (a, b) => asNum(a.from) - asNum(b.from);
+
 const useStoreNotes = create(
   persist(
     (set) => ({
-      allNotes: {},
+      notes: {},
+      plans: [],
+      daily: [],
 
-      addNote: (day, newNote) =>
-        set((state) => ({
-          allNotes: {
-            ...state.allNotes,
-            [day]: [...(state.allNotes[day] || []), newNote].sort((a, b) => a.time - b.time),
-          },
-        })),
-
-      updateNote: (day, at, newNote) =>
-        set((state) => ({
-          allNotes: {
-            ...state.allNotes,
-            [day]: state.allNotes[day]
-              ? [...state.allNotes[day].slice(0, at), newNote, ...state.allNotes[day].slice(at + 1)].sort(
-                  (a, b) => a.time - b.time
-                )
-              : [],
-          },
-        })),
-
-      deleteNote: (day, at) =>
-        set((state) => ({
-          allNotes: {
-            ...state.allNotes,
-            [day]: state.allNotes[day]
-              ? state.allNotes[day].filter((_, index) => index !== at).sort((a, b) => a.time - b.time)
-              : [],
-          },
-        })),
-
-      moveNote: (from, to, at) =>
+      addNote: (to, newNote) =>
         set((state) => {
-          const noteToMove = state.allNotes[from]?.[at];
-          if (!noteToMove) return state;
-
-          const updatedSource = state.allNotes[from].filter((_, index) => index !== at);
-          const updatedDestination = [...(state.allNotes[to] || []), noteToMove].sort((a, b) => a.time - b.time);
-
+          if (to === "plans") return { ...state, plans: [newNote, ...state.plans] };
+          if (to === "daily") return { ...state, daily: [newNote, ...state.daily] };
           return {
-            allNotes: {
-              ...state.allNotes,
-              [from]: updatedSource,
-              [to]: updatedDestination,
+            ...state,
+            notes: {
+              ...state.notes,
+              [to]: [...(state.notes[to] || []), newNote].sort(sortNote),
             },
           };
         }),
+
+      updateNote: (to, at, newNote) =>
+        set((state) => {
+          if (to === "plans")
+            return { ...state, plans: [...state.notes[to].slice(0, at), newNote, ...state.notes[to].slice(at + 1)] };
+          if (to === "daily")
+            return { ...state, daily: [...state.notes[to].slice(0, at), newNote, ...state.notes[to].slice(at + 1)] };
+          return {
+            notes: {
+              ...state.notes,
+              [to]: state.notes[to]
+                ? [...state.notes[to].slice(0, at), newNote, ...state.notes[to].slice(at + 1)].sort(sortNote)
+                : [newNote],
+            },
+          };
+        }),
+
+      deleteNote: (to, at) =>
+        set((state) => {
+          if (to === "plans") return { ...state, plans: state.notes[to].filter((_, index) => index !== at) };
+          if (to === "daily") return { ...state, daily: state.notes[to].filter((_, index) => index !== at) };
+          return {
+            notes: {
+              ...state.notes,
+              [to]: state.notes[to] ? state.notes[to].filter((_, index) => index !== at).sort(sortNote) : [],
+            },
+          };
+        }),
+
+      moveNote: (from, to, at) =>
+        set((state) => {
+          // Check note to move
+          const noteToMove = ((from === "plans" || from === "daily") && state[from][at]) || state.notes[from]?.[at];
+          if (!noteToMove) return state;
+
+          // Update source and destination
+          state.deleteNote(from, at);
+          state.addNote(to, noteToMove);
+
+          return state;
+        }),
+
+      upCount: (at) =>
+        set((state) => ({
+          ...state,
+          plans: [
+            ...state.plans.slice(0, at),
+            ...{ ...state.plans[at], count: state.plans[at].count + 1 || 1 },
+            ...state.plans.slice(at + 1),
+          ],
+        })),
     }),
     {
       name: "notes",

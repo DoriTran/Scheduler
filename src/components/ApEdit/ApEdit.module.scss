@@ -1,0 +1,28 @@
+@import "index.scss";
+
+.input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  box-shadow: none;
+}
+
+.name {
+  color: var(--text);
+  font-size: $pxmoderate;
+}
+
+.description {
+  color: var(--text);
+  font-size: $pxnormal;
+}
+
+.time {
+  color: var(--text);
+  font-size: $large;
+}

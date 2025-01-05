@@ -3,4 +3,5 @@
 .view {
   max-height: calc(100vh - $navbar);
   max-width: calc(100vw - $sidebar);
+  padding: 0 25px;
 }

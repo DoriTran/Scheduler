@@ -1,0 +1,77 @@
+@import "index.scss";
+
+.weekView {
+  @include flexRow;
+  gap: 15px;
+}
+
+.dayCard {
+  @include flexCol;
+  justify-content: flex-start;
+  width: calc((100vw - $sidebar - 50px) / 7 - 15px);
+  height: calc(100vh - $navbar - 15px);
+
+  .header {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.2);
+    clip-path: polygon(-20% -25%, 120% -25%, 120% 50%, -20% 50%);
+    margin-top: 30px;
+    color: var(--text);
+    @include flexCol;
+    user-select: none;
+
+    .rotateWrapper {
+      // prettier-ignore
+      @include absolute((top: -27px, left: 50%));
+      transform: rotate(45deg) translateX(-50%);
+
+      .todayIndicator {
+        z-index: 1;
+        // prettier-ignore
+        @include absolute((top: 0, left: 0));
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        clip-path: polygon(0 0, 50% 0, 50% 50%, 0 50%);
+        background-color: var(--primary);
+        transform: scale(-1, -1) translate(calc(50% + 5px), calc(50% + 5px));
+        transition: 1s ease-in-out;
+      }
+
+      .diamondBox {
+        z-index: 2;
+        // prettier-ignore
+        @include absolute((top: 0, left: 0));
+        width: 45px;
+        height: 45px;
+        border: 4px solid var(--primary-dark);
+        background: var(--primary-light);
+        @include flexCol;
+        cursor: pointer;
+
+        .day {
+          transform: rotate(-45deg);
+          font-size: 30px;
+          line-height: 45px;
+          vertical-align: middle;
+        }
+      }
+    }
+
+    .dayBody {
+      font-size: $pxsize24;
+      margin-bottom: 40px;
+    }
+  }
+
+  .body {
+    box-shadow: $cardShadow;
+    width: 100%;
+    height: calc(100vh - $navbar - 50px);
+    margin-top: -75px;
+  }
+}
