@@ -6,11 +6,15 @@ import ApIcon from "components/ApIcon/ApIcon";
 import { faPalette } from "@fortawesome/free-solid-svg-icons";
 import styles from "./ColorPicker.module.scss";
 
-const ColorItem = ({ isSelected, color, setColor, setPreview }) => {
+const ColorItem = ({ isSelected, color, setPreview, setOpen, onSelect }) => {
   return (
     <MenuItem
       className={styles.colorItem}
-      onClick={() => setColor(color)}
+      onClick={(e) => {
+        e?.stopPropagation();
+        onSelect(null, { color });
+        setOpen(false);
+      }}
       onMouseEnter={() => setPreview(color)}
       onMouseLeave={() => setPreview(null)}
       style={{
@@ -28,16 +32,16 @@ const ColorItem = ({ isSelected, color, setColor, setPreview }) => {
   );
 };
 
-const ColorPicker = ({ isOpen, setOpen, color, setColor, setPreview, paletteSize = 22 }) => {
-  const [isOpenPicker, setIsOpenPicker] = useState(false);
+const ColorPicker = ({ isOpen, setOpen, color, setPreview, onSelect, paletteSize = 22 }) => {
+  // const [isOpenPicker, setIsOpenPicker] = useState(false);
   const allNoteColors = useMemo(() => getAllNoteColors(), []);
 
   return (
     <ApFlyout
       anchor={<ApIcon icon={faPalette} size={paletteSize} color={`var(--${color}-important)`} />}
       transformOrigin={{ vertical: "center", horizontal: "left" }}
-      isOpen={isOpenPicker}
-      setIsOpen={setIsOpenPicker}
+      isOpen={isOpen}
+      setIsOpen={setOpen}
       onClose={() => setPreview(null)}
       maxHeight="90vh"
       className={styles.wrapper}
@@ -47,8 +51,9 @@ const ColorPicker = ({ isOpen, setOpen, color, setColor, setPreview, paletteSize
           key={eachColor}
           isSelected={color === eachColor}
           color={eachColor}
-          setColor={setColor}
           setPreview={setPreview}
+          setOpen={setOpen}
+          onSelect={onSelect}
         />
       ))}
     </ApFlyout>

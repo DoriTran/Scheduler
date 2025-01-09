@@ -1,7 +1,6 @@
-/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import { ApEdit, ApIcon, ColorPicker } from "components";
-import { faPalette, faPen, faPlay, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useRef, useState } from "react";
+import { faPen, faPlay, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useRef, useState } from "react";
 import { useStoreNotes } from "store";
 import { useShallow } from "zustand/react/shallow";
 import { useCardStyle, useTargetClickOutside } from "hooks";
@@ -12,6 +11,7 @@ const PlanCard = ({ at, name, description, count, color, important }) => {
   const [isHover, setIsHover] = useState(false);
   const [isFocus, setIsFocus] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [isColor, setIsColor] = useState(false);
   const [preview, setPreview] = useState(null);
   const [data, setData] = useState({
     name,
@@ -22,15 +22,16 @@ const PlanCard = ({ at, name, description, count, color, important }) => {
   const { updateNote, deleteNote } = useStoreNotes(
     useShallow((state) => ({ updateNote: state.updateNote, deleteNote: state.deleteNote }))
   );
-  const updatePlanCard = (e) => {
+  const updatePlanCard = (e, newData) => {
     e?.stopPropagation();
-    updateNote("plans", at, data);
-    setIsFocus(false);
+    updateNote("plans", at, { ...data, ...newData });
+    setData({ ...data, ...newData });
     setIsEdit(false);
+    setIsFocus(false);
   };
 
-  const cardStyles = useCardStyle({ isHover, isFocus, color, important, preview });
-  useTargetClickOutside(cardRef, () => () => setIsFocus(false));
+  const cardStyles = useCardStyle({ isHover, isFocus: isFocus || isColor, color, important, preview });
+  useTargetClickOutside(cardRef, () => setIsFocus(false));
 
   return (
     <div
@@ -79,12 +80,14 @@ const PlanCard = ({ at, name, description, count, color, important }) => {
             style={{ width: 25 }}
           />
         )}
-        {isFocus && !isEdit && (
+        {((isFocus && !isEdit) || isColor) && (
           <>
             <ColorPicker
+              isOpen={isColor}
+              setOpen={setIsColor}
               color={data.color}
-              setColor={(c) => setData({ ...data, color: c })}
               setPreview={setPreview}
+              onSelect={updatePlanCard}
               paletteSize={22}
             />
             <ApIcon icon={faPen} size={22} color="var(--text)" onClick={() => setIsEdit(true)} />
