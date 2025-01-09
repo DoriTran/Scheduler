@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ApCollapse } from "components";
+import { ApCollapse, ApScrollbar } from "components";
 import Calendar from "./Calendar/Calendar";
 import styles from "./index.module.scss";
 import SideDivider from "./SideDivider/SideDivider";
@@ -11,17 +11,17 @@ const SideBar = () => {
   const [collapseCalendar, setCollapseCalendar] = useState(false);
 
   return (
-    <aside className={styles.side}>
-      <ApCollapse collapsed={collapseClock} vertical height="195px">
+    <ApScrollbar hidden className={styles.side}>
+      <ApCollapse collapsed={collapseClock} vertical minHeight="195px">
         <TimeClock />
       </ApCollapse>
       <SideDivider collapse={collapseClock} setCollapse={setCollapseClock} />
-      <ApCollapse collapsed={collapseCalendar} vertical height="350px" width="80%">
+      <ApCollapse collapsed={collapseCalendar} vertical minHeight="350px" width="80%">
         <Calendar />
       </ApCollapse>
       <SideDivider collapse={collapseCalendar} setCollapse={setCollapseCalendar} />
       <YourPlans />
-    </aside>
+    </ApScrollbar>
   );
 };
 

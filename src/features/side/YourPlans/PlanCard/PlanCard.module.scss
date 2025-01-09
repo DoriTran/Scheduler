@@ -20,14 +20,13 @@
 
   .countWrapper {
     // prettier-ignore
-    @include absolute((top: 50%, right: 15px ));
+    @include absolute((top: 50% ));
     transform: translateY(-50%);
     @include flexRow;
     flex-direction: row-reverse;
     justify-content: flex-start;
     gap: 3px;
     height: 100%;
-    aspect-ratio: 1;
     cursor: pointer;
     border-radius: 50%;
 

@@ -7,6 +7,7 @@
   background-color: var(--primary-light);
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   padding-top: 30px;
+  padding-bottom: 15px;
   overflow: hidden;
 
   @include flexCol;

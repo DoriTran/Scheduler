@@ -7,7 +7,7 @@ const useCardStyle = ({ isHover, isFocus, important, color, preview } = {}) => {
         (isHover && color && "-highlight") || (important && color && "-important") || (color && "-pastel") || ""
       })`,
       color: `var(--${((isHover || !important) && "text") || (important && "text-contrast")})`,
-      ...(isFocus && { border: `2px solid var(--${color || "background"}-important)` }),
+      ...(isFocus && { border: `2px solid var(--${preview || color || "background"}-important)` }),
     };
   }, [isHover, isFocus, important, color, preview]);
 };

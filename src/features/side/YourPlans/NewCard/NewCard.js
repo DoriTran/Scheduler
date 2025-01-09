@@ -24,13 +24,17 @@ const NewCard = () => {
       <div className={styles.fieldsWrapper}>
         <input
           className={clsx(styles.input, styles.name)}
+          value={data.name}
           onChange={(e) => setData({ ...data, name: e.target.value })}
-          placeholder="Write your new note"
+          onKeyDown={(e) => e.key === "Enter" && addNewNoteToPlan()}
+          placeholder="New planning?"
         />
         <input
           className={clsx(styles.input, styles.description)}
+          value={data.description}
           onChange={(e) => setData({ ...data, description: e.target.value })}
-          placeholder="Write description"
+          onKeyDown={(e) => e.key === "Enter" && addNewNoteToPlan()}
+          placeholder="About it?"
         />
       </div>
       <ApIcon icon={faPlay} size={30} color="var(--text)" onClick={addNewNoteToPlan} />

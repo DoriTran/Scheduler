@@ -26,10 +26,8 @@ const useStoreNotes = create(
 
       updateNote: (to, at, newNote) =>
         set((state) => {
-          if (to === "plans")
-            return { ...state, plans: [...state.notes[to].slice(0, at), newNote, ...state.notes[to].slice(at + 1)] };
-          if (to === "daily")
-            return { ...state, daily: [...state.notes[to].slice(0, at), newNote, ...state.notes[to].slice(at + 1)] };
+          if (to === "plans") return { ...state, plans: [...state[to].slice(0, at), newNote, ...state[to].slice(at + 1)] };
+          if (to === "daily") return { ...state, daily: [...state[to].slice(0, at), newNote, ...state[to].slice(at + 1)] };
           return {
             notes: {
               ...state.notes,
@@ -42,8 +40,8 @@ const useStoreNotes = create(
 
       deleteNote: (to, at) =>
         set((state) => {
-          if (to === "plans") return { ...state, plans: state.notes[to].filter((_, index) => index !== at) };
-          if (to === "daily") return { ...state, daily: state.notes[to].filter((_, index) => index !== at) };
+          if (to === "plans") return { ...state, plans: state[to].filter((_, index) => index !== at) };
+          if (to === "daily") return { ...state, daily: state[to].filter((_, index) => index !== at) };
           return {
             notes: {
               ...state.notes,

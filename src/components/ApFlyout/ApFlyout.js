@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Fade, Popover } from "@mui/material"; // Ensure you have Material-UI installed
+import { Fade, Popover } from "@mui/material";
 import ApScrollbar from "components/ApScrollbar/ApScrollbar";
 
 const ApFlyout = ({
@@ -12,21 +12,22 @@ const ApFlyout = ({
     vertical: "top",
     horizontal: "left",
   },
-  isOpen,
-  setIsOpen,
-  style,
+  isOpen, // required for opening
+  setIsOpen, // required for opening
   maxHeight = "75vh",
   autoFocus = false,
   onOpen,
   onClose,
   noUnmountWhenClose,
+  sx,
   children,
+  ...restProps
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleOpen = (event) => {
     onOpen?.(event);
-    setIsOpen(true);
+    setIsOpen?.(true);
     setAnchorEl(event.currentTarget);
   };
 
@@ -50,10 +51,10 @@ const ApFlyout = ({
           TransitionComponent={Fade}
           anchorOrigin={anchorOrigin}
           transformOrigin={transformOrigin}
-          sx={{ ...(noUnmountWhenClose && !isOpen && { display: "none" }), ...style }}
+          sx={{ ...(noUnmountWhenClose && !isOpen && { display: "none" }), ...sx }}
         >
           <ApScrollbar hidden maxHeight={maxHeight}>
-            <div style={style?.children}>{children}</div>
+            <div {...restProps}>{children}</div>
           </ApScrollbar>
         </Popover>
       )}
