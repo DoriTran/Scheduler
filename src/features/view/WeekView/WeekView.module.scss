@@ -2,13 +2,13 @@
 
 .weekView {
   @include flexRow;
-  gap: 15px;
+  gap: 8px;
 }
 
 .dayCard {
   @include flexCol;
   justify-content: flex-start;
-  width: calc((100vw - $sidebar - 50px) / 7 - 15px);
+  width: calc((100vw - $sidebar - 50px) / 7);
   height: calc(100vh - $navbar - 15px);
 
   .header {
@@ -73,5 +73,9 @@
     width: 100%;
     height: calc(100vh - $navbar - 50px);
     margin-top: -75px;
+    padding-top: 10px;
+    @include flexCol;
+    justify-content: flex-start;
+    gap: 2px;
   }
 }

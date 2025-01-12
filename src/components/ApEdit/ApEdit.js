@@ -1,43 +1,24 @@
+/* eslint-disable prettier/prettier */
 import clsx from "clsx";
-import { useEffect, useState } from "react";
 import styles from "./ApEdit.module.scss";
 
 // type → name | description | time
-const ApEdit = ({ type, isEdit, setEdit, value, setValue, onConfirm, onCancel, ...restProps }) => {
-  const [ownValue, setOwnValue] = useState(value);
-  const [status, setStatus] = useState(isEdit || false);
-
-  const setEditStatus = (sta) => {
-    setStatus(sta);
-    setEdit?.(sta);
-  };
-
+const ApEdit = ({ type, isEdit, value, setValue, onConfirm, onCancel, ...restProps }) => {
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      // Save value and exit edit mode
-      setValue(ownValue);
-      setEditStatus(false);
-      onConfirm?.();
-    } else if (e.key === "Escape") {
-      // Revert value and exit edit mode
-      setOwnValue(value);
-      setEditStatus(false);
-      onCancel?.();
+    switch (e.key) {
+      case "Enter": onConfirm?.(); break;
+      case "Escape": onCancel?.(); break;
+      default: break;
     }
   };
 
-  useEffect(() => {
-    setOwnValue(value);
-  }, [value]);
-
-  if (isEdit || status) {
+  if (isEdit) {
     return (
       <input
         className={clsx(styles[type], styles.input)}
-        value={ownValue}
-        onChange={(e) => setOwnValue(e.target.value)}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
-        onBlur={() => setEditStatus(false)}
         {...restProps}
       />
     );
@@ -45,10 +26,6 @@ const ApEdit = ({ type, isEdit, setEdit, value, setValue, onConfirm, onCancel, .
   return (
     <div
       className={styles[type]}
-      onContextMenu={(e) => {
-        e.preventDefault();
-        setEditStatus(true);
-      }}
       {...restProps}
     >
       {value}

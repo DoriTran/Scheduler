@@ -1,24 +1,19 @@
 import React from "react";
 import { Tooltip, Typography } from "@mui/material";
 
-const ApTooltip = ({ tooltip, wrapContent, componentsProps, children, ...restProps }) => {
+const ApTooltip = ({ tooltip, refWrap, config, offset, children, ...restProps }) => {
   return (
     <Tooltip
-      title={<Typography sx={{ fontFamily: "'Poppins', sans-serif", fontSize: "0.75rem" }}>{tooltip}</Typography>}
+      title={<Typography sx={{ fontFamily: "'Mali', sans-serif", fontSize: "1rem" }}>{tooltip}</Typography>}
       arrow
       sx={{ backgroundColor: "var(--primary-light" }}
       slotProps={{
-        arrow: {
-          sx: {
-            color: "var(--primary)",
-            ...(componentsProps?.arrow?.sx || {}),
-          },
-        },
+        arrow: { sx: { color: "var(--primary-dark)" } },
         tooltip: {
           sx: {
-            backgroundColor: "var(--primary)",
-            border: "3px solid var(--primary-light)",
-            ...(componentsProps?.tooltip?.sx || {}),
+            backgroundColor: "var(--background)",
+            border: "2px solid var(--primary-dark)",
+            color: "var(--text)",
           },
         },
         popper: {
@@ -26,17 +21,16 @@ const ApTooltip = ({ tooltip, wrapContent, componentsProps, children, ...restPro
             {
               name: "offset",
               options: {
-                offset: [0, -4],
+                offset: offset || [0, -10],
               },
             },
           ],
-          ...(componentsProps?.popper?.modifiers || {}),
         },
-        ...componentsProps,
+        ...config,
       }}
       {...restProps}
     >
-      {wrapContent ? <div>{children}</div> : children}
+      {refWrap ? <div>{children}</div> : children}
     </Tooltip>
   );
 };

@@ -1,42 +1,96 @@
-import { ApIcon } from "components";
-import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import { ApEdit, ApIcon, ColorPicker } from "components";
+import { faCaretRight, faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useMemo, useState } from "react";
 import { getPeriodByTime } from "utils";
 import moment from "moment";
-import ColorPicker from "./ColorPicker";
+import { useCardStatus, useCardStyle, useTargetClickOutside } from "hooks";
+import { useStoreNotes } from "store";
+import { useShallow } from "zustand/react/shallow";
 import styles from "./NoteCard.module.scss";
 
-const NoteCard = ({ from, to, name, description, color, important }) => {
-  const [isHover, setIsHover] = useState(false);
-  const [previewColor, setPreviewColor] = useState(null);
+// cardData: from, to, name, description, color, important, count
+const NoteCard = ({ at, date, dateString, ...cardData }) => {
+  const { cardRef, status, data, visible, updateStatus, updateData } = useCardStatus(cardData);
+  const [isHoverPeriod, setIsHoverPeriod] = useState(false);
+
+  const { updateNote, deleteNote } = useStoreNotes(
+    useShallow((state) => ({ updateNote: state.updateNote, deleteNote: state.deleteNote }))
+  );
+  const updatePlanCard = (e, newData) => {
+    e?.stopPropagation();
+    updateNote(dateString, at, { ...data, ...newData });
+    updateData({ ...data, ...newData });
+    updateStatus({ isEdit: false, isFocus: false });
+  };
+
+  const cardStyles = useCardStyle({ ...status, ...data });
+  useTargetClickOutside(cardRef, () => updateStatus({ isFocus: false }));
+
   const rangePeriod = useMemo(() => {
-    return getPeriodByTime(moment(from, "HH:mm"));
-  }, [from]);
-  const cardStyle = useMemo(() => {
-    return {
-      backgroundColor: `var(--${previewColor || color}-${
-        (isHover && "highlight") || (important && "important") || "pastel"
-      })`,
-      color: `var(--${((isHover || !important) && "text") || (important && "text-contrast")}`,
-    };
-  }, [isHover, color, important]);
+    return getPeriodByTime(moment(cardData.from, "HH:mm"));
+  }, [cardData.from]);
 
   return (
     <div
-      className={styles.noteCard}
-      style={cardStyle}
-      onMouseEnter={() => setIsHover(true)}
-      onMouseLeave={() => setIsHover(false)}
+      ref={cardRef}
+      className={styles.card}
+      style={cardStyles}
+      onMouseEnter={() => updateStatus({ isHover: true })}
+      onMouseLeave={() => updateStatus({ isHover: false })}
+      onClick={() => updateStatus({ isFocus: true })}
+      onContextMenu={(e) => {
+        e.preventDefault();
+        updateStatus({ isEdit: true, isFocus: true });
+      }}
     >
       <div className={styles.timeRange}>
-        <ApIcon period={rangePeriod} size={16} />
-        {from}
-        <ApIcon icon={faCaretRight} size={5} />
-        {to}
+        <div onMouseEnter={() => setIsHoverPeriod(true)} onMouseLeave={() => setIsHoverPeriod(false)}>
+          <ApIcon
+            {...(isHoverPeriod ? { icon: faXmark } : { period: rangePeriod })}
+            size={16}
+            color="var(--text)"
+            onClick={(e) => {
+              e.preventDefault();
+              deleteNote(dateString, at);
+            }}
+            style={{ width: 16 }}
+          />
+        </div>
+        {cardData.from}
+        <ApIcon icon={faCaretRight} size={12} color="var(--text)" style={{ width: 10 }} />
+        {cardData.to}
       </div>
-      <div className={styles.name}>{name}</div>
-      <div className={styles.description}>{description}</div>
-      <ColorPicker isCardHover={isHover} color={color} preview={previewColor} setPreview={setPreviewColor} />
+      <ApEdit
+        type="name"
+        isEdit={status.isEdit}
+        value={data.name}
+        setValue={(v) => updateData({ name: v })}
+        onConfirm={updatePlanCard}
+        placeholder="Note?"
+      />
+      <ApEdit
+        type="description"
+        isEdit={status.isEdit}
+        value={data.description}
+        setValue={(v) => updateData({ description: v })}
+        onConfirm={updatePlanCard}
+        placeholder="Aboout it?"
+      />
+      <div className={styles.actions} style={{ backgroundColor: cardStyles.backgroundColor }}>
+        {visible.showColorAndEdit && (
+          <>
+            <ColorPicker
+              isOpen={status.isColor}
+              setOpen={(isColorValue) => updateStatus({ isColor: isColorValue })}
+              color={data.color}
+              setPreview={(previewValue) => updateStatus({ preview: previewValue })}
+              onSelect={updatePlanCard}
+              paletteSize={16}
+            />
+            <ApIcon icon={faPen} size={16} color="var(--text)" onClick={() => updateStatus({ isEdit: true })} />
+          </>
+        )}
+      </div>
     </div>
   );
 };

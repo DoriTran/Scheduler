@@ -1,48 +1,32 @@
 @import "index.scss";
 
-.noteCard {
+.card {
   position: relative;
   width: 95%;
+  min-height: 80px;
   @include flexCol;
+  justify-content: flex-start;
+  align-items: flex-start;
   border-radius: 5px;
   box-shadow: $cardShadow;
+  padding: 2px 6px;
 
   .timeRange {
     @include flexRow;
-    gap: 2px;
-    flex-wrap: wrap;
-    font-size: $large;
-  }
-
-  .name {
-    font-size: $pxmoderate;
-  }
-
-  .description {
-    font-size: $pxnormal;
-  }
-}
-
-.colorPicker {
-  // prettier-ignore
-  @include absolute((top: 0, right: 0));
-  box-shadow: $cardShadow;
-  border-top-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  overflow: hidden;
-
-  .wrapper {
-    // prettier-ignore
-    @include absolute((top: 0, right: 0));
-    @include flexRow;
-    align-items: flex-start;
+    justify-content: flex-start;
     gap: 5px;
-    padding: 5px;
+    font-size: $pxlarge;
+    overflow: hidden;
+  }
 
-    .colors {
-      @include flexRow;
-      flex-wrap: wrap;
-      gap: 2px;
-    }
+  .actions {
+    // prettier-ignore
+    @include absolute((top: 5px, right: 5px ));
+    @include flexCol;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 5px;
+    border-radius: 50%;
+    width: 25px;
   }
 }

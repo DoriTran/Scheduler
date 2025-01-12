@@ -1,13 +1,14 @@
 import { useStoreNotes, useStoreView, useStoreConfig } from "store";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useMemoTime } from "hooks";
 import moment from "moment";
-import { NoteCard } from "../components";
+import { NoteCard, TimeGap } from "../components";
 import styles from "./WeekView.module.scss";
 
-const DayCard = ({ date }) => {
+const DayCard = ({ date, dateString }) => {
   const [isHover, setIsHover] = useState(false);
-  const notes = useStoreNotes((state) => state.notes[`${date.day}${date.month + 1}${date.year}`]) || [];
+  const notes = useStoreNotes((state) => state.notes[dateString]) || [];
+  const addNote = useStoreNotes((state) => state.addNote);
   const setViewValue = useStoreView((state) => state.setViewValue);
   const setView = useStoreConfig((state) => state.setView);
   const isToday = useMemoTime(() => moment(date).isSame(moment(), "day"), [date], "m");
@@ -33,9 +34,15 @@ const DayCard = ({ date }) => {
         <div className={styles.dayBody}>{date.weekDay}</div>
       </div>
       <div className={styles.body}>
-        {notes.map((note) => (
-          <NoteCard key={`${date.day}${date.month}${date.year}-${note.from}`} {...note} />
+        {notes.map((note, index) => (
+          <Fragment key={`${date.day}${date.month}${date.year}-card: ${index}`}>
+            <NoteCard at={index} date={date} dateString={dateString} {...note} />
+            {index !== notes.length - 1 && (
+              <TimeGap from={note.to} to={notes[index + 1]?.from} onClick={() => addNote(dateString, { from: note.to })} />
+            )}
+          </Fragment>
         ))}
+        {isHover && <TimeGap plus onClick={() => addNote(dateString, { from: notes[notes.length - 1]?.to || "00:00" })} />}
       </div>
     </div>
   );

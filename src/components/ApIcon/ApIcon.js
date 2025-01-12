@@ -5,6 +5,7 @@ import sunrise from "./sunrise.svg";
 import sunset from "./sunset.svg";
 import moon from "./moon.svg";
 import stars from "./stars.svg";
+import plusdown from "./plusdown.svg";
 
 // Session: morning, noon, evening, night, midnight
 const svgIcon = {
@@ -13,6 +14,7 @@ const svgIcon = {
   evening: sunset,
   night: moon,
   midnight: stars,
+  plus: plusdown,
 };
 
 const ApIcon = ({ icon, color = "inherit", size = "1.5rem", fixedWidth = true, sx, period, ...restProps }) => {

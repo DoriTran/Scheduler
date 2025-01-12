@@ -2,7 +2,9 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 const asNum = (time) => parseInt(time.replace(":", ""), 10);
-const sortNote = (a, b) => asNum(a.from) - asNum(b.from);
+const sortNote = (a, b) => {
+  return asNum(a.from) - asNum(b.from);
+};
 
 const useStoreNotes = create(
   persist(

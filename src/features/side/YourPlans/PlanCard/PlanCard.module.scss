@@ -11,14 +11,14 @@
   padding: 10px;
   color: var(--text);
 
-  .fieldsWrapper {
+  .fields {
     @include flexCol;
     justify-content: space-between;
     align-items: flex-start;
     width: 85%;
   }
 
-  .countWrapper {
+  .actions {
     // prettier-ignore
     @include absolute((top: 50% ));
     transform: translateY(-50%);
@@ -27,7 +27,6 @@
     justify-content: flex-start;
     gap: 3px;
     height: 100%;
-    cursor: pointer;
     border-radius: 50%;
 
     .count {
