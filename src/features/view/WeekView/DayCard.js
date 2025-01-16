@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { useStoreNotes, useStoreView, useStoreConfig } from "store";
 import { Fragment, useState } from "react";
 import { useMemoTime } from "hooks";
@@ -36,7 +37,7 @@ const DayCard = ({ date, dateString }) => {
       <div className={styles.body}>
         {notes.map((note, index) => (
           <Fragment
-            key={`${date.day}${date.month}${date.year}-card: ${note.name}-${note.from}-${note.to}-${note.description}`}
+            key={`${date.day}${date.month}${date.year}-card: ${note.name}-${note.from}-${note.to}-${note.description} -index: ${index}`}
           >
             <NoteCard at={index} date={date} dateString={dateString} {...note} />
             {index !== notes.length - 1 && (

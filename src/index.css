@@ -50,6 +50,8 @@
   --night-fading-to: rgba(142, 68, 173, 0.1);
 
   /* Notes Colors: */
+  --important-important: #000000;
+
   --base-pastel: #FEFEFE;
   --base-highlight: #e2e2e2;
   --base-important: #5A5A5A;

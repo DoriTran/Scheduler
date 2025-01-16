@@ -32,13 +32,13 @@ const ColorItem = ({ isSelected, color, setPreview, setOpen, onSelect }) => {
   );
 };
 
-const ColorPicker = ({ isOpen, setOpen, color, setPreview, onSelect, paletteSize = 22 }) => {
+const ColorPicker = ({ isOpen, setOpen, color, setPreview, onSelect, paletteSize = 22, paletteColor }) => {
   // const [isOpenPicker, setIsOpenPicker] = useState(false);
   const allNoteColors = useMemo(() => getAllNoteColors(), []);
 
   return (
     <ApFlyout
-      anchor={<ApIcon icon={faPalette} size={paletteSize} color={`var(--${color}-important)`} />}
+      anchor={<ApIcon icon={faPalette} size={paletteSize} color={paletteColor} />}
       transformOrigin={{ vertical: "center", horizontal: "left" }}
       isOpen={isOpen}
       setIsOpen={setOpen}

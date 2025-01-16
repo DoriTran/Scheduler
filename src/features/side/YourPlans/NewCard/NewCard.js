@@ -2,7 +2,7 @@ import { ApIcon } from "components";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useStoreNotes } from "store";
-import { useCardStyle } from "hooks";
+import { useCardStyles } from "hooks";
 import clsx from "clsx";
 import styles from "./NewCard.module.scss";
 
@@ -11,7 +11,7 @@ const NewCard = () => {
     name: "",
     description: "",
   });
-  const cardStyles = useCardStyle();
+  const cardStyles = useCardStyles();
   const addNote = useStoreNotes((state) => state.addNote);
 
   const addNewNoteToPlan = () => {

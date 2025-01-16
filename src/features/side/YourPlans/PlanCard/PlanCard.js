@@ -2,7 +2,7 @@ import { ApEdit, ApIcon, ColorPicker } from "components";
 import { faPen, faPlay, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useStoreNotes } from "store";
 import { useShallow } from "zustand/react/shallow";
-import { useCardStatus, useCardStyle, useTargetClickOutside } from "hooks";
+import { useCardStatus, useCardStyles, useTargetClickOutside } from "hooks";
 import { useEffect } from "react";
 import styles from "./PlanCard.module.scss";
 
@@ -20,7 +20,7 @@ const PlanCard = ({ at, ...cardData }) => {
     updateStatus({ isEdit: false, isFocus: false });
   };
 
-  const cardStyles = useCardStyle({ ...status, ...data });
+  const cardStyles = useCardStyles({ ...status, ...data });
   useTargetClickOutside(cardRef, () => updateStatus({ isFocus: false }));
 
   return (
@@ -31,6 +31,7 @@ const PlanCard = ({ at, ...cardData }) => {
       onMouseEnter={() => updateStatus({ isHover: true })}
       onMouseLeave={() => updateStatus({ isHover: false })}
       onClick={() => updateStatus({ isFocus: true })}
+      onDoubleClick={() => updateStatus({ important: !status.important })}
       onContextMenu={(e) => {
         e.preventDefault();
         updateStatus({ isEdit: true, isFocus: true });
@@ -44,6 +45,7 @@ const PlanCard = ({ at, ...cardData }) => {
           setValue={(v) => updateData({ name: v })}
           onConfirm={updatePlanCard}
           placeholder="Change your plan?"
+          infoColor={cardStyles.color}
         />
         <ApEdit
           type="description"
@@ -52,6 +54,7 @@ const PlanCard = ({ at, ...cardData }) => {
           setValue={(v) => updateData({ description: v })}
           onConfirm={updatePlanCard}
           placeholder="New aboout it?"
+          infoColor={cardStyles.color}
         />
       </div>
       <div
@@ -62,13 +65,13 @@ const PlanCard = ({ at, ...cardData }) => {
           right: status.isEdit ? 10 : 15,
         }}
       >
-        {visible.showUpdate && <ApIcon icon={faPlay} size={30} color="var(--text)" onClick={updatePlanCard} />}
+        {visible.showUpdate && <ApIcon icon={faPlay} size={30} color={cardStyles.color} onClick={updatePlanCard} />}
         {visible.showCount && <div className={styles.count}>{cardData.count}</div>}
         {visible.showDelete && (
           <ApIcon
             icon={faXmark}
             size={35}
-            color="var(--text)"
+            color={cardStyles.color}
             onClick={(e) => {
               e.preventDefault();
               deleteNote("plans", at);
@@ -85,8 +88,9 @@ const PlanCard = ({ at, ...cardData }) => {
               setPreview={(previewValue) => updateStatus({ preview: previewValue })}
               onSelect={updatePlanCard}
               paletteSize={22}
+              paletteColor={cardStyles.color}
             />
-            <ApIcon icon={faPen} size={22} color="var(--text)" onClick={() => updateStatus({ isEdit: true })} />
+            <ApIcon icon={faPen} size={22} color={cardStyles.color} onClick={() => updateStatus({ isEdit: true })} />
           </>
         )}
       </div>

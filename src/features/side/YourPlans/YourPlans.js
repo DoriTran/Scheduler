@@ -14,7 +14,7 @@ const YourPlans = () => {
       <NewCard />
       <div className={styles.plans}>
         {plans.map((plan, index) => (
-          <PlanCard key={`${plan.name}-${plan.description}`} at={index} {...plan} />
+          <PlanCard key={`${plan.name}-${plan.description}-index: ${index}`} at={index} {...plan} />
         ))}
       </div>
     </div>

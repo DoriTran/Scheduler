@@ -3,7 +3,7 @@ import { faCaretRight, faPen, faXmark } from "@fortawesome/free-solid-svg-icons"
 import { useMemo, useState } from "react";
 import { getPeriodByTime } from "utils";
 import moment from "moment";
-import { useCardStatus, useCardStyle, useTargetClickOutside } from "hooks";
+import { useCardStatus, useCardStyles, useTargetClickOutside } from "hooks";
 import { useStoreNotes } from "store";
 import { useShallow } from "zustand/react/shallow";
 import styles from "./NoteCard.module.scss";
@@ -23,7 +23,7 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
     updateStatus({ isEdit: false, isFocus: false });
   };
 
-  const cardStyles = useCardStyle({ ...status, ...data });
+  const cardStyles = useCardStyles({ ...status, ...data });
   useTargetClickOutside(cardRef, () => updateStatus({ isFocus: false }));
 
   const rangePeriod = useMemo(() => {
@@ -38,6 +38,7 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
       onMouseEnter={() => updateStatus({ isHover: true })}
       onMouseLeave={() => updateStatus({ isHover: false })}
       onClick={() => updateStatus({ isFocus: true })}
+      onDoubleClick={() => updateStatus({ important: !status.important })}
       onContextMenu={(e) => {
         e.preventDefault();
         updateStatus({ isEdit: true, isFocus: true });
@@ -48,7 +49,7 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
           <ApIcon
             {...(isHoverPeriod ? { icon: faXmark } : { period: rangePeriod })}
             size={16}
-            color="var(--text)"
+            color={cardStyles.color}
             onClick={(e) => {
               e.preventDefault();
               deleteNote(dateString, at);
@@ -57,7 +58,7 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
           />
         </div>
         {cardData.from}
-        <ApIcon icon={faCaretRight} size={12} color="var(--text)" style={{ width: 10 }} />
+        <ApIcon icon={faCaretRight} size={12} color={cardStyles.color} style={{ width: 10 }} />
         {cardData.to}
       </div>
       <ApEdit
@@ -76,7 +77,10 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
         onConfirm={updatePlanCard}
         placeholder="Aboout it?"
       />
-      <div className={styles.actions} style={{ backgroundColor: cardStyles.backgroundColor }}>
+      <div
+        className={styles.actions}
+        style={{ backgroundColor: cardStyles.backgroundColor, transition: cardStyles.transition }}
+      >
         {visible.showColorAndEdit && (
           <>
             <ColorPicker
@@ -86,8 +90,9 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
               setPreview={(previewValue) => updateStatus({ preview: previewValue })}
               onSelect={updatePlanCard}
               paletteSize={16}
+              paletteColor={cardStyles.color}
             />
-            <ApIcon icon={faPen} size={16} color="var(--text)" onClick={() => updateStatus({ isEdit: true })} />
+            <ApIcon icon={faPen} size={16} color={cardStyles.color} onClick={() => updateStatus({ isEdit: true })} />
           </>
         )}
       </div>
