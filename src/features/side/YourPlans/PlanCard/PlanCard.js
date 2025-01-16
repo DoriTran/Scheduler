@@ -3,7 +3,6 @@ import { faPen, faPlay, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useStoreNotes } from "store";
 import { useShallow } from "zustand/react/shallow";
 import { useCardStatus, useCardStyles, useTargetClickOutside } from "hooks";
-import { useEffect } from "react";
 import styles from "./PlanCard.module.scss";
 
 // cardData: name, description, color, important, count
@@ -31,7 +30,7 @@ const PlanCard = ({ at, ...cardData }) => {
       onMouseEnter={() => updateStatus({ isHover: true })}
       onMouseLeave={() => updateStatus({ isHover: false })}
       onClick={() => updateStatus({ isFocus: true })}
-      onDoubleClick={() => updateStatus({ important: !status.important })}
+      onDoubleClick={(e) => updatePlanCard(e, { important: !status.important })}
       onContextMenu={(e) => {
         e.preventDefault();
         updateStatus({ isEdit: true, isFocus: true });
