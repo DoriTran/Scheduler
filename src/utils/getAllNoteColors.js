@@ -21,7 +21,6 @@ function getAllNoteColors() {
     "lavender",
     "brown",
     "maroon",
-    "grey",
   ];
 }
 

@@ -4,7 +4,6 @@
   /* Color: */
   --background: #FEFEFE;
   --background-low: rgba(254, 254, 254, 0.35);
-  --background-important: #D9B9B9;
   --card-background: #FFFFFF;
   --card-off-background: rgba(248, 237, 227, 0.35);
   --text: #43000A;
@@ -51,6 +50,10 @@
   --night-fading-to: rgba(142, 68, 173, 0.1);
 
   /* Notes Colors: */
+  --base-pastel: #FEFEFE;
+  --base-highlight: #e2e2e2;
+  --base-important: #5A5A5A;
+
   --red-pastel: #FFDDD8;
   --red-highlight: #F3A1A1;
   --red-important: #A52A2A;
@@ -134,10 +137,6 @@
   --maroon-pastel: #D4A8A8;
   --maroon-highlight: #AD7070;
   --maroon-important: #660000;
-
-  --grey-pastel: #E9E6E6;
-  --grey-highlight: #B5B5B5;
-  --grey-important: #5A5A5A;
 }
 
 * {

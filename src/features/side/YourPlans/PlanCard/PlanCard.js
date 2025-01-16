@@ -56,7 +56,11 @@ const PlanCard = ({ at, ...cardData }) => {
       </div>
       <div
         className={styles.actions}
-        style={{ backgroundColor: cardStyles.backgroundColor, right: status.isEdit ? 10 : 15 }}
+        style={{
+          backgroundColor: cardStyles.backgroundColor,
+          transition: cardStyles.transition,
+          right: status.isEdit ? 10 : 15,
+        }}
       >
         {visible.showUpdate && <ApIcon icon={faPlay} size={30} color="var(--text)" onClick={updatePlanCard} />}
         {visible.showCount && <div className={styles.count}>{cardData.count}</div>}
