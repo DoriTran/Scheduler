@@ -1,6 +1,6 @@
 import { ApEdit, ApIcon, ColorPicker } from "components";
 import { faCaretRight, faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { getPeriodByTime } from "utils";
 import moment from "moment";
 import { useCardStatus, useCardStyles, useTargetClickOutside } from "hooks";
@@ -12,6 +12,9 @@ import styles from "./NoteCard.module.scss";
 const NoteCard = ({ at, date, dateString, ...cardData }) => {
   const { cardRef, status, data, visible, updateStatus, updateData } = useCardStatus(cardData);
   const [isHoverPeriod, setIsHoverPeriod] = useState(false);
+  const rangePeriod = useMemo(() => {
+    return getPeriodByTime(moment(cardData.from, "HH:mm"));
+  }, [cardData.from]);
 
   const { updateNote, deleteNote } = useStoreNotes(
     useShallow((state) => ({ updateNote: state.updateNote, deleteNote: state.deleteNote }))
@@ -25,10 +28,6 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
 
   const cardStyles = useCardStyles({ ...status, ...data });
   useTargetClickOutside(cardRef, () => updateStatus({ isFocus: false }));
-
-  const rangePeriod = useMemo(() => {
-    return getPeriodByTime(moment(cardData.from, "HH:mm"));
-  }, [cardData.from]);
 
   return (
     <div

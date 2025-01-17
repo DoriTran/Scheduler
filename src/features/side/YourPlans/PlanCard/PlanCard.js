@@ -3,6 +3,7 @@ import { faPen, faPlay, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useStoreNotes } from "store";
 import { useShallow } from "zustand/react/shallow";
 import { useCardStatus, useCardStyles, useTargetClickOutside } from "hooks";
+import { useRef } from "react";
 import styles from "./PlanCard.module.scss";
 
 // cardData: name, description, color, important, count
@@ -22,18 +23,6 @@ const PlanCard = ({ at, ...cardData }) => {
   const cardStyles = useCardStyles({ ...status, ...data });
   useTargetClickOutside(cardRef, () => updateStatus({ isFocus: false }));
 
-  let clickTimeout;
-  const handleClick = () => {
-    clickTimeout = setTimeout(() => {
-      updateStatus({ isFocus: true });
-    }, 10000); // Adjust the delay as needed
-  };
-
-  const handleDoubleClick = (e) => {
-    clearTimeout(clickTimeout);
-    updatePlanCard(e, { important: !data.important });
-  };
-
   return (
     <div
       ref={cardRef}
@@ -41,8 +30,8 @@ const PlanCard = ({ at, ...cardData }) => {
       style={cardStyles}
       onMouseEnter={() => updateStatus({ isHover: true })}
       onMouseLeave={() => updateStatus({ isHover: false })}
-      onClick={handleClick}
-      onDoubleClick={handleDoubleClick}
+      onClick={() => updateStatus({ isFocus: true })}
+      onDoubleClick={(e) => updatePlanCard(e, { important: !data.important })}
       onContextMenu={(e) => {
         e.preventDefault();
         updateStatus({ isEdit: true, isFocus: true });
