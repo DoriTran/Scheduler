@@ -22,6 +22,18 @@ const PlanCard = ({ at, ...cardData }) => {
   const cardStyles = useCardStyles({ ...status, ...data });
   useTargetClickOutside(cardRef, () => updateStatus({ isFocus: false }));
 
+  let clickTimeout;
+  const handleClick = () => {
+    clickTimeout = setTimeout(() => {
+      updateStatus({ isFocus: true });
+    }, 10000); // Adjust the delay as needed
+  };
+
+  const handleDoubleClick = (e) => {
+    clearTimeout(clickTimeout);
+    updatePlanCard(e, { important: !data.important });
+  };
+
   return (
     <div
       ref={cardRef}
@@ -29,8 +41,8 @@ const PlanCard = ({ at, ...cardData }) => {
       style={cardStyles}
       onMouseEnter={() => updateStatus({ isHover: true })}
       onMouseLeave={() => updateStatus({ isHover: false })}
-      onClick={() => updateStatus({ isFocus: true })}
-      onDoubleClick={(e) => updatePlanCard(e, { important: !status.important })}
+      onClick={handleClick}
+      onDoubleClick={handleDoubleClick}
       onContextMenu={(e) => {
         e.preventDefault();
         updateStatus({ isEdit: true, isFocus: true });

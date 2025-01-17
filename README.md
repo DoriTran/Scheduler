@@ -1,2 +1,1 @@
-not show color item selected
-update card lose imporant settings
+update important color more priority than hover
