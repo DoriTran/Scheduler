@@ -8,3 +8,4 @@ export { default as ApModal } from "./ApModal/ApModal";
 export { default as ApScrollbar } from "./ApScrollbar/ApScrollbar";
 export { default as ApTooltip } from "./ApTooltip/ApTooltip";
 export { default as ColorPicker } from "./ColorPicker/ColorPicker";
+export { default as TimePicker } from "./TimePicker/TimePicker";

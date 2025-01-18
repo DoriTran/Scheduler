@@ -2,7 +2,7 @@
 import clsx from "clsx";
 import styles from "./ApEdit.module.scss";
 
-// type → name | description | time
+// type → name | description
 const ApEdit = ({ type, isEdit, value, setValue, onConfirm, onCancel, infoColor, ...restProps }) => {
   const handleKeyDown = (e) => {
     switch (e.key) {
@@ -12,7 +12,7 @@ const ApEdit = ({ type, isEdit, value, setValue, onConfirm, onCancel, infoColor,
     }
   };
 
-  if (isEdit) {
+  if (isEdit)
     return (
       <input
         className={clsx(styles[type], styles.input)}
@@ -22,13 +22,8 @@ const ApEdit = ({ type, isEdit, value, setValue, onConfirm, onCancel, infoColor,
         {...restProps}
       />
     );
-  }
   return (
-    <div
-      className={styles[type]}
-      style={{ color: infoColor }}
-      {...restProps}
-    >
+    <div className={styles[type]} style={{ color: infoColor }} {...restProps}>
       {value}
     </div>
   );

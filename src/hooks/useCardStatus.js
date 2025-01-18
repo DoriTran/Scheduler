@@ -11,6 +11,8 @@ export default function useCardStatus(cardData) {
     isFocus: false,
     isEdit: false,
     isColor: false,
+    isFrom: false,
+    isTo: false,
     preview: null,
   });
 

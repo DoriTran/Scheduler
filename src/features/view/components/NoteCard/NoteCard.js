@@ -1,4 +1,4 @@
-import { ApEdit, ApIcon, ColorPicker } from "components";
+import { ApEdit, ApIcon, ColorPicker, TimePicker } from "components";
 import { faCaretRight, faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useMemo, useRef, useState } from "react";
 import { getPeriodByTime } from "utils";
@@ -56,9 +56,21 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
             style={{ width: 16 }}
           />
         </div>
-        {cardData.from}
+        <TimePicker
+          isOpen={status.isFrom}
+          setOpen={(isFromValue) => updateStatus({ isFrom: isFromValue })}
+          value={data.from}
+          onSelect={updatePlanCard}
+          infoColor={cardStyles.color}
+        />
         <ApIcon icon={faCaretRight} size={12} color={cardStyles.color} style={{ width: 10 }} />
-        {cardData.to}
+        <TimePicker
+          isOpen={status.isTo}
+          setOpen={(isToValue) => updateStatus({ isTo: isToValue })}
+          value={data.to}
+          onSelect={updatePlanCard}
+          infoColor={cardStyles.color}
+        />
       </div>
       <ApEdit
         type="name"
