@@ -1,1 +1,0 @@
-color keep highlighted after set color

@@ -17,7 +17,7 @@ const PlanCard = ({ at, ...cardData }) => {
     e?.stopPropagation();
     updateNote("plans", at, { ...data, ...newData });
     updateData({ ...data, ...newData });
-    updateStatus({ isEdit: false, isFocus: false });
+    updateStatus({ isEdit: false, isHover: false, isFocus: false });
   };
 
   const cardStyles = useCardStyles({ ...status, ...data });

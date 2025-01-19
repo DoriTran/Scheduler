@@ -23,7 +23,7 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
     e?.stopPropagation();
     updateNote(dateString, at, { ...data, ...newData });
     updateData({ ...data, ...newData });
-    if (!keepEdit) updateStatus({ isEdit: false, isFocus: false });
+    if (!keepEdit) updateStatus({ isEdit: false, isHover: false, isFocus: false });
   };
 
   const cardStyles = useCardStyles({ ...status, ...data });
