@@ -58,9 +58,29 @@ const useStoreNotes = create(
           const noteToMove = ((from === "plans" || from === "daily") && state[from][at]) || state.notes[from]?.[at];
           if (!noteToMove) return state;
 
-          // Update source and destination
-          state.deleteNote(from, at);
-          state.addNote(to, noteToMove);
+          // Delete note from source
+          if (from === "plans") {
+            state.plans = state.plans.filter((_, index) => index !== at);
+          } else if (from === "daily") {
+            state.daily = state.daily.filter((_, index) => index !== at);
+          } else {
+            state.notes = {
+              ...state.notes,
+              [from]: state.notes[from] ? state.notes[from].filter((_, index) => index !== at).sort(sortNote) : [],
+            };
+          }
+
+          // Add note to destination
+          if (to === "plans") {
+            state.plans = [noteToMove, ...state.plans];
+          } else if (to === "daily") {
+            state.daily = [noteToMove, ...state.daily];
+          } else {
+            state.notes = {
+              ...state.notes,
+              [to]: [...(state.notes[to] || []), noteToMove].sort(sortNote),
+            };
+          }
 
           return state;
         }),
