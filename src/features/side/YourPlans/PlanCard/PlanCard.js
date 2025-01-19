@@ -6,8 +6,8 @@ import { useCardStatus, useCardStyles, useTargetClickOutside } from "hooks";
 import { useRef } from "react";
 import styles from "./PlanCard.module.scss";
 
-// cardData: name, description, color, important, count
-const PlanCard = ({ at, ...cardData }) => {
+// cardData: id, name, description, color, important, count
+const PlanCard = ({ ...cardData }) => {
   const { cardRef, status, data, visible, updateStatus, updateData } = useCardStatus(cardData);
 
   const { updateNote, deleteNote } = useStoreNotes(
@@ -15,7 +15,7 @@ const PlanCard = ({ at, ...cardData }) => {
   );
   const updatePlanCard = (e, newData) => {
     e?.stopPropagation();
-    updateNote("plans", at, { ...data, ...newData });
+    updateNote("plans", { ...data, ...newData });
     updateData({ ...data, ...newData });
     updateStatus({ isEdit: false, isHover: false, isFocus: false });
   };
@@ -76,7 +76,7 @@ const PlanCard = ({ at, ...cardData }) => {
             color={cardStyles.color}
             onClick={(e) => {
               e.preventDefault();
-              deleteNote("plans", at);
+              deleteNote("plans", cardData);
             }}
             style={{ width: 25 }}
           />

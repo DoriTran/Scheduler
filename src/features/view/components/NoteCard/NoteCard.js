@@ -8,8 +8,8 @@ import { useStoreNotes } from "store";
 import { useShallow } from "zustand/react/shallow";
 import styles from "./NoteCard.module.scss";
 
-// cardData: from, to, name, description, color, important, count
-const NoteCard = ({ at, date, dateString, ...cardData }) => {
+// cardData: id, from, to, name, description, color, important, count
+const NoteCard = ({ date, dateString, ...cardData }) => {
   const { cardRef, status, data, visible, updateStatus, updateData } = useCardStatus(cardData);
   const [isHoverPeriod, setIsHoverPeriod] = useState(false);
   const rangePeriod = useMemo(() => {
@@ -21,7 +21,7 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
   );
   const updatePlanCard = (e, newData, keepEdit) => {
     e?.stopPropagation();
-    updateNote(dateString, at, { ...data, ...newData });
+    updateNote(dateString, { ...data, ...newData });
     updateData({ ...data, ...newData });
     if (!keepEdit) updateStatus({ isEdit: false, isHover: false, isFocus: false });
   };
@@ -30,7 +30,7 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
   useTargetClickOutside(cardRef, () => updateStatus({ isFocus: false }));
 
   return (
-    <ApDragDrop data={({ input }) => ({ data: cardData, date: dateString, at, isDuplicate: input.ctrlKey })}>
+    <ApDragDrop data={({ input }) => ({ cardData, date: dateString, isDuplicate: input.ctrlKey })}>
       <div
         className={styles.card}
         style={cardStyles}
@@ -56,7 +56,7 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
                 color={cardStyles.color}
                 onClick={(e) => {
                   e.preventDefault();
-                  deleteNote(dateString, at);
+                  deleteNote(dateString, cardData);
                 }}
                 style={{ width: 16 }}
               />

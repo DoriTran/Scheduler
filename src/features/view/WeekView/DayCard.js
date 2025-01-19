@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import { useStoreNotes, useStoreView, useStoreConfig } from "store";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useMemoTime } from "hooks";
 import moment from "moment";
 import { ApDragDrop, useMonitor } from "components";
@@ -22,11 +22,17 @@ const DayCard = ({ date, dateString }) => {
     setView("day");
   };
 
+  useEffect(() => {
+    if (notes.length > 0) {
+      console.log(notes);
+    }
+  }, [notes]);
+
   return (
     <ApDragDrop
       onCatch={({ source: { data } }) => {
-        if (data.isDuplicate) addNote(dateString, data.data);
-        else moveNote(data.date, dateString, data.at);
+        if (data.isDuplicate) addNote(dateString, data.cardData);
+        else moveNote(data.date, dateString, data.cardData);
       }}
     >
       <div className={styles.dayCard} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
@@ -46,12 +52,12 @@ const DayCard = ({ date, dateString }) => {
         </div>
         <div className={styles.body}>
           {notes.map((note, index) => (
-            <>
-              <NoteCard at={index} date={date} dateString={dateString} {...note} />
+            <Fragment key={`${dateString}-${note.id}`}>
+              <NoteCard date={date} dateString={dateString} {...note} />
               {index !== notes.length - 1 && (
                 <TimeGap from={note.to} to={notes[index + 1]?.from} onClick={() => addNote(dateString, { from: note.to })} />
               )}
-            </>
+            </Fragment>
           ))}
           {isHover && <TimeGap plus onClick={() => addNote(dateString, { from: notes[notes.length - 1]?.to || "00:00" })} />}
         </div>
