@@ -10,7 +10,6 @@ import styles from "./WeekView.module.scss";
 
 const DayCard = ({ date, dateString }) => {
   const [isHover, setIsHover] = useState(false);
-  const [, setRerender] = useState(true);
   const notes = useStoreNotes((state) => state.notes[dateString]) || [];
   const { addNote, moveNote } = useStoreNotes(useShallow((state) => ({ addNote: state.addNote, moveNote: state.moveNote })));
   const setViewValue = useStoreView((state) => state.setViewValue);
@@ -26,8 +25,8 @@ const DayCard = ({ date, dateString }) => {
   return (
     <ApDragDrop
       onCatch={({ source: { data } }) => {
-        moveNote(data.date, dateString, data.at);
-        setRerender((prev) => !prev);
+        if (data.isDuplicate) addNote(dateString, data.data);
+        else moveNote(data.date, dateString, data.at);
       }}
     >
       <div className={styles.dayCard} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
@@ -47,12 +46,12 @@ const DayCard = ({ date, dateString }) => {
         </div>
         <div className={styles.body}>
           {notes.map((note, index) => (
-            <Fragment key={`${date.day}${date.month}${date.year}-index: ${index}`}>
-              <NoteCard at={index} date={date} dateString={dateString} setRerender={setRerender} {...note} />
+            <>
+              <NoteCard at={index} date={date} dateString={dateString} {...note} />
               {index !== notes.length - 1 && (
                 <TimeGap from={note.to} to={notes[index + 1]?.from} onClick={() => addNote(dateString, { from: note.to })} />
               )}
-            </Fragment>
+            </>
           ))}
           {isHover && <TimeGap plus onClick={() => addNote(dateString, { from: notes[notes.length - 1]?.to || "00:00" })} />}
         </div>

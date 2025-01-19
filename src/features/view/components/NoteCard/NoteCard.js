@@ -9,7 +9,7 @@ import { useShallow } from "zustand/react/shallow";
 import styles from "./NoteCard.module.scss";
 
 // cardData: from, to, name, description, color, important, count
-const NoteCard = ({ at, date, dateString, setRerender, ...cardData }) => {
+const NoteCard = ({ at, date, dateString, ...cardData }) => {
   const { cardRef, status, data, visible, updateStatus, updateData } = useCardStatus(cardData);
   const [isHoverPeriod, setIsHoverPeriod] = useState(false);
   const rangePeriod = useMemo(() => {
@@ -30,7 +30,7 @@ const NoteCard = ({ at, date, dateString, setRerender, ...cardData }) => {
   useTargetClickOutside(cardRef, () => updateStatus({ isFocus: false }));
 
   return (
-    <ApDragDrop data={{ date: dateString, at }} onDrop={() => setRerender((prev) => !prev)}>
+    <ApDragDrop data={({ input }) => ({ data: cardData, date: dateString, at, isDuplicate: input.ctrlKey })}>
       <div
         className={styles.card}
         style={cardStyles}

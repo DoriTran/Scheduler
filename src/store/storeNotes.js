@@ -28,13 +28,23 @@ const useStoreNotes = create(
 
       updateNote: (to, at, newNote) =>
         set((state) => {
-          if (to === "plans") return { ...state, plans: [...state[to].slice(0, at), newNote, ...state[to].slice(at + 1)] };
-          if (to === "daily") return { ...state, daily: [...state[to].slice(0, at), newNote, ...state[to].slice(at + 1)] };
+          const newState = { ...state };
+          if (to === "plans")
+            return {
+              ...newState,
+              plans: [...newState.plans.slice(0, at), newNote, ...newState.plans.slice(at + 1)],
+            };
+          if (to === "daily")
+            return {
+              ...newState,
+              daily: [...newState.daily.slice(0, at), newNote, ...newState.daily.slice(at + 1)],
+            };
           return {
+            ...newState,
             notes: {
-              ...state.notes,
-              [to]: state.notes[to]
-                ? [...state.notes[to].slice(0, at), newNote, ...state.notes[to].slice(at + 1)].sort(sortNote)
+              ...newState.notes,
+              [to]: newState.notes[to]
+                ? [...newState.notes[to].slice(0, at), newNote, ...newState.notes[to].slice(at + 1)].sort(sortNote)
                 : [newNote],
             },
           };
@@ -42,58 +52,65 @@ const useStoreNotes = create(
 
       deleteNote: (to, at) =>
         set((state) => {
-          if (to === "plans") return { ...state, plans: state[to].filter((_, index) => index !== at) };
-          if (to === "daily") return { ...state, daily: state[to].filter((_, index) => index !== at) };
+          const newState = { ...state };
+          if (to === "plans") return { ...newState, plans: newState.plans.filter((_, index) => index !== at) };
+          if (to === "daily") return { ...newState, daily: newState.daily.filter((_, index) => index !== at) };
           return {
+            ...newState,
             notes: {
-              ...state.notes,
-              [to]: state.notes[to] ? state.notes[to].filter((_, index) => index !== at).sort(sortNote) : [],
+              ...newState.notes,
+              [to]: newState.notes[to] ? newState.notes[to].filter((_, index) => index !== at).sort(sortNote) : [],
             },
           };
         }),
 
       moveNote: (from, to, at) =>
         set((state) => {
-          // Check note to move
           const noteToMove = ((from === "plans" || from === "daily") && state[from][at]) || state.notes[from]?.[at];
           if (!noteToMove) return state;
 
-          // Delete note from source
+          // Create new state for immutability
+          const newState = { ...state };
+
+          // Remove from source
           if (from === "plans") {
-            state.plans = state.plans.filter((_, index) => index !== at);
+            newState.plans = state.plans.filter((_, index) => index !== at);
           } else if (from === "daily") {
-            state.daily = state.daily.filter((_, index) => index !== at);
+            newState.daily = state.daily.filter((_, index) => index !== at);
           } else {
-            state.notes = {
+            newState.notes = {
               ...state.notes,
               [from]: state.notes[from] ? state.notes[from].filter((_, index) => index !== at).sort(sortNote) : [],
             };
           }
 
-          // Add note to destination
+          // Add to destination
           if (to === "plans") {
-            state.plans = [noteToMove, ...state.plans];
+            newState.plans = [noteToMove, ...newState.plans];
           } else if (to === "daily") {
-            state.daily = [noteToMove, ...state.daily];
+            newState.daily = [noteToMove, ...newState.daily];
           } else {
-            state.notes = {
-              ...state.notes,
-              [to]: [...(state.notes[to] || []), noteToMove].sort(sortNote),
+            newState.notes = {
+              ...newState.notes,
+              [to]: [...(newState.notes[to] || []), noteToMove].sort(sortNote),
             };
           }
 
-          return state;
+          return newState;
         }),
 
       upCount: (at) =>
-        set((state) => ({
-          ...state,
-          plans: [
-            ...state.plans.slice(0, at),
-            ...{ ...state.plans[at], count: state.plans[at].count + 1 || 1 },
-            ...state.plans.slice(at + 1),
-          ],
-        })),
+        set((state) => {
+          const newState = { ...state };
+          return {
+            ...newState,
+            plans: [
+              ...newState.plans.slice(0, at),
+              { ...newState.plans[at], count: (newState.plans[at].count || 0) + 1 },
+              ...newState.plans.slice(at + 1),
+            ],
+          };
+        }),
     }),
     {
       name: "notes",

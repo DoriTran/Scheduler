@@ -10,7 +10,7 @@ const TimeGap = ({ from: fromValue, to: toValue, plus, onClick }) => {
     const to = moment(toValue, "HH:mm");
     const minutes = to.diff(from, "minutes");
 
-    if (Number.isNaN(minutes) || minutes === 0) return { icon: null, tooltip: null };
+    if (Number.isNaN(minutes) || minutes <= 0) return { icon: null, tooltip: null };
     // Lest than 30 minutes
     let gapIcon = faEllipsis;
     // Less than 3 hours
