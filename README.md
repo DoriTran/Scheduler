@@ -1,1 +1,1 @@
-update important color more priority than hover
+esc can't exit card editing mode

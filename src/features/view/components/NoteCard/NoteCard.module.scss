@@ -10,6 +10,11 @@
   border-radius: 5px;
   box-shadow: $cardShadow;
   padding: 2px 6px;
+  overflow: hidden;
+
+  .periodIcon {
+    min-width: 16px;
+  }
 
   .timeRange {
     @include flexRow;
@@ -21,12 +26,13 @@
 
   .actions {
     // prettier-ignore
-    @include absolute((top: 5px, right: 5px ));
+    @include absolute((top: 0, right: 0 ));
     @include flexCol;
     justify-content: flex-start;
     align-items: flex-end;
     gap: 5px;
-    border-radius: 50%;
+    border-radius: 5px;
     width: 25px;
+    padding: 5px 3px 0 0;
   }
 }

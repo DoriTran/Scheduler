@@ -9,11 +9,7 @@ const EmptyCell = () => {
 
 const NumCell = memo(({ num, selected, setValue }) => {
   return (
-    <div
-      onClick={() => setValue(num)}
-      className={selected ? styles.cellSelected : styles.cellNotSelected}
-      onDoubleClick={(e) => e.stopPropagation()}
-    >
+    <div onClick={() => setValue(num)} className={selected ? styles.cellSelected : styles.cellNotSelected}>
       {num.toString().padStart(2, "0")}
     </div>
   );
@@ -42,6 +38,8 @@ const CellList = ({ type, value, setValue }) => {
       smooth={smoothBehavior}
       speed={type === "hour" ? "60px" : "140px"}
       className={styles.cellList}
+      onClick={(e) => e.stopPropagation()}
+      onDoubleClick={(e) => e.stopPropagation()}
     >
       {Array.from({ length: 4 }).map((_, index) => (
         <EmptyCell key={`${type}-top-empty-cell-${index}`} />
@@ -72,7 +70,7 @@ const extractTime = (value) => {
   const minute = parseInt(value?.slice(-2), 10) || 0;
   return { hour, minute };
 };
-const TimePicker = ({ isOpen, setOpen, value, onSelect, infoColor, ...restProps }) => {
+const TimePicker = ({ isOpen, setOpen, value, setValue, infoColor, ...restProps }) => {
   const [time, setTime] = useState(extractTime(value));
   useEffect(() => setTime(extractTime(value)), [value]);
 
@@ -87,6 +85,7 @@ const TimePicker = ({ isOpen, setOpen, value, onSelect, infoColor, ...restProps 
       transformOrigin={{ vertical: "center", horizontal: "center" }}
       isOpen={isOpen}
       setIsOpen={setOpen}
+      onClose={() => setValue(`${time.hour.toString().padStart(2, "0")}:${time.minute.toString().padStart(2, "0")}`)}
       className={styles.wrapper}
     >
       <CellList type="hour" value={time.hour} setValue={setTime} {...restProps} />

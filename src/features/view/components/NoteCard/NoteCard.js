@@ -44,7 +44,11 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
       }}
     >
       <div className={styles.timeRange}>
-        <div onMouseEnter={() => setIsHoverPeriod(true)} onMouseLeave={() => setIsHoverPeriod(false)}>
+        <div
+          className={styles.periodIcon}
+          onMouseEnter={() => setIsHoverPeriod(true)}
+          onMouseLeave={() => setIsHoverPeriod(false)}
+        >
           <ApIcon
             {...(isHoverPeriod ? { icon: faXmark } : { period: rangePeriod })}
             size={16}
@@ -60,15 +64,23 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
           isOpen={status.isFrom}
           setOpen={(isFromValue) => updateStatus({ isFrom: isFromValue })}
           value={data.from}
-          onSelect={updatePlanCard}
+          setValue={(v) => updatePlanCard(null, { from: v })}
           infoColor={cardStyles.color}
         />
-        <ApIcon icon={faCaretRight} size={12} color={cardStyles.color} style={{ width: 10 }} />
+        {(data.to || status.isHover) && (
+          <ApIcon
+            icon={faCaretRight}
+            size={12}
+            color={cardStyles.color}
+            style={{ width: 10 }}
+            {...(!data.to && { onClick: (e) => updatePlanCard(e, { to: data.from }) })}
+          />
+        )}
         <TimePicker
           isOpen={status.isTo}
           setOpen={(isToValue) => updateStatus({ isTo: isToValue })}
           value={data.to}
-          onSelect={updatePlanCard}
+          setValue={(v) => updatePlanCard(null, { to: v })}
           infoColor={cardStyles.color}
         />
       </div>
