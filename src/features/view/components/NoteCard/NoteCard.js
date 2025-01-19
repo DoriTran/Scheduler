@@ -104,26 +104,28 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
         onConfirm={updatePlanCard}
         placeholder="Aboout it?"
       />
-      <div
-        className={styles.actions}
-        style={{ backgroundColor: cardStyles.backgroundColor, transition: cardStyles.transition }}
-      >
-        {visible.showColorAndEdit && (
-          <>
-            <ColorPicker
-              isOpen={status.isColor}
-              setOpen={(isColorValue) => updateStatus({ isColor: isColorValue })}
-              color={data.color}
-              setPreview={(previewValue) => updateStatus({ preview: previewValue })}
-              onSelect={updatePlanCard}
-              paletteSize={16}
-              paletteColor={cardStyles.color}
-            />
-            <ApIcon icon={faPen} size={16} color={cardStyles.color} onClick={() => updateStatus({ isEdit: true })} />
-          </>
-        )}
-        {status.isEdit && <ApIcon icon={faPlay} size={16} color={cardStyles.color} onClick={updatePlanCard} />}
-      </div>
+      {visible.showActions && (
+        <div
+          className={styles.actions}
+          style={{ backgroundColor: cardStyles.backgroundColor, transition: cardStyles.transition }}
+        >
+          {visible.showColorAndEdit && (
+            <>
+              <ColorPicker
+                isOpen={status.isColor}
+                setOpen={(isColorValue) => updateStatus({ isColor: isColorValue })}
+                color={data.color}
+                setPreview={(previewValue) => updateStatus({ preview: previewValue })}
+                onSelect={updatePlanCard}
+                paletteSize={16}
+                paletteColor={cardStyles.color}
+              />
+              <ApIcon icon={faPen} size={16} color={cardStyles.color} onClick={() => updateStatus({ isEdit: true })} />
+            </>
+          )}
+          {status.isEdit && <ApIcon icon={faPlay} size={16} color={cardStyles.color} onClick={updatePlanCard} />}
+        </div>
+      )}
     </div>
   );
 };

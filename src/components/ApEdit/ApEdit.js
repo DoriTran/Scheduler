@@ -19,6 +19,7 @@ const ApEdit = ({ type, isEdit, value, setValue, onConfirm, onCancel, infoColor,
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
+        onDoubleClick={(e) => e.stopPropagation()}
         {...restProps}
       />
     );

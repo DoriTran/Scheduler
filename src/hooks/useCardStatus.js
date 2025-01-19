@@ -26,6 +26,7 @@ export default function useCardStatus(cardData) {
       showCount: !status.isHover && !status.isEdit && data.count,
       showDelete: (status.isHover || status.isFocus) && !status.isEdit,
       showColorAndEdit: (status.isFocus && !status.isEdit) || status.isColor,
+      showActions: (status.isFocus && !status.isEdit) || status.isColor || status.isEdit,
     };
   }, [status, data]);
 

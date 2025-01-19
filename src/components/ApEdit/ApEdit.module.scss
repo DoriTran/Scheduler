@@ -13,10 +13,19 @@
   box-shadow: none;
 }
 
+.value {
+  width: 100%;
+  word-wrap: break-word; /* Allows long words to be broken and wrap to the next line */
+  overflow-wrap: break-word; /* Ensures compatibility with different browsers */
+  white-space: normal; /* Allows text to wrap normally */
+}
+
 .name {
+  @extend .value;
   font-size: $pxmoderate;
 }
 
 .description {
+  @extend .value;
   font-size: $pxnormal;
 }
