@@ -31,6 +31,7 @@ export default function useCardStatus(cardData) {
 
   // Support functions
   const updateStatus = (newStatus) => {
+    console.log(newStatus);
     setStatus((prevStatus) => ({ ...prevStatus, ...newStatus }));
   };
 

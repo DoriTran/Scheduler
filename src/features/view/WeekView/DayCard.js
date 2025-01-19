@@ -36,9 +36,7 @@ const DayCard = ({ date, dateString }) => {
       </div>
       <div className={styles.body}>
         {notes.map((note, index) => (
-          <Fragment
-            key={`${date.day}${date.month}${date.year}-card: ${note.name}-${note.from}-${note.to}-${note.description} -index: ${index}`}
-          >
+          <Fragment key={`${date.day}${date.month}${date.year}-index: ${index}`}>
             <NoteCard at={index} date={date} dateString={dateString} {...note} />
             {index !== notes.length - 1 && (
               <TimeGap from={note.to} to={notes[index + 1]?.from} onClick={() => addNote(dateString, { from: note.to })} />

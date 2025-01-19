@@ -1,5 +1,5 @@
 import ApScrollbar from "components/ApScrollbar/ApScrollbar";
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import ApFlyout from "components/ApFlyout/ApFlyout";
 import styles from "./TimePicker.module.scss";
 
@@ -70,7 +70,7 @@ const extractTime = (value) => {
   const minute = parseInt(value?.slice(-2), 10) || 0;
   return { hour, minute };
 };
-const TimePicker = ({ isOpen, setOpen, value, setValue, infoColor, ...restProps }) => {
+const TimePicker = ({ isOpen, setOpen, value, setValue, disabled, infoColor, ...restProps }) => {
   const [time, setTime] = useState(extractTime(value));
   useEffect(() => setTime(extractTime(value)), [value]);
 
@@ -85,7 +85,11 @@ const TimePicker = ({ isOpen, setOpen, value, setValue, infoColor, ...restProps 
       transformOrigin={{ vertical: "center", horizontal: "center" }}
       isOpen={isOpen}
       setIsOpen={setOpen}
-      onClose={() => setValue(`${time.hour.toString().padStart(2, "0")}:${time.minute.toString().padStart(2, "0")}`)}
+      onClose={() => {
+        const changeResult = `${time.hour.toString().padStart(2, "0")}:${time.minute.toString().padStart(2, "0")}`;
+        if (changeResult !== value) setValue?.(changeResult);
+      }}
+      disabled={disabled}
       className={styles.wrapper}
     >
       <CellList type="hour" value={time.hour} setValue={setTime} {...restProps} />

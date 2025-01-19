@@ -1,1 +1,1 @@
-esc can't exit card editing mode
+color keep highlighted after set color

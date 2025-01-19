@@ -19,6 +19,7 @@ const ApFlyout = ({
   onOpen,
   onClose,
   noUnmountWhenClose,
+  disabled,
   sx,
   children,
   ...restProps
@@ -26,6 +27,7 @@ const ApFlyout = ({
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleOpen = (event) => {
+    if (disabled) return;
     onOpen?.(event);
     setIsOpen?.(true);
     setAnchorEl(event.currentTarget);
@@ -40,7 +42,7 @@ const ApFlyout = ({
     <>
       {React.cloneElement(anchor, {
         onClick: handleOpen,
-        style: { cursor: "pointer" },
+        style: { cursor: disabled ? "unset" : "pointer" },
       })}
       {anchorEl && (
         <Popover

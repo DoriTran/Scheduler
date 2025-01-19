@@ -44,6 +44,7 @@ const PlanCard = ({ at, ...cardData }) => {
           value={data.name}
           setValue={(v) => updateData({ name: v })}
           onConfirm={updatePlanCard}
+          onCancel={() => updateStatus({ isEdit: false })}
           placeholder="Change your plan?"
           infoColor={cardStyles.color}
         />
@@ -53,6 +54,7 @@ const PlanCard = ({ at, ...cardData }) => {
           value={data.description}
           setValue={(v) => updateData({ description: v })}
           onConfirm={updatePlanCard}
+          onCancel={() => updateStatus({ isEdit: false })}
           placeholder="New aboout it?"
           infoColor={cardStyles.color}
         />

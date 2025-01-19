@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-const useCardStyles = ({ isHover, isFocus, isColor, important, color, preview } = {}) => {
+const useCardStyles = ({ isHover, isFocus, isColor, isEdit, important, color, preview } = {}) => {
   return useMemo(() => {
     // Card status conditions:
     const isSelected = isFocus || isColor;

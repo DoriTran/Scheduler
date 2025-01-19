@@ -1,6 +1,6 @@
 import { ApEdit, ApIcon, ColorPicker, TimePicker } from "components";
-import { faCaretRight, faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useMemo, useRef, useState } from "react";
+import { faCaretRight, faPen, faPlay, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { getPeriodByTime } from "utils";
 import moment from "moment";
 import { useCardStatus, useCardStyles, useTargetClickOutside } from "hooks";
@@ -19,11 +19,11 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
   const { updateNote, deleteNote } = useStoreNotes(
     useShallow((state) => ({ updateNote: state.updateNote, deleteNote: state.deleteNote }))
   );
-  const updatePlanCard = (e, newData) => {
+  const updatePlanCard = (e, newData, keepEdit) => {
     e?.stopPropagation();
     updateNote(dateString, at, { ...data, ...newData });
     updateData({ ...data, ...newData });
-    updateStatus({ isEdit: false, isFocus: false });
+    if (!keepEdit) updateStatus({ isEdit: false, isFocus: false });
   };
 
   const cardStyles = useCardStyles({ ...status, ...data });
@@ -64,8 +64,9 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
           isOpen={status.isFrom}
           setOpen={(isFromValue) => updateStatus({ isFrom: isFromValue })}
           value={data.from}
-          setValue={(v) => updatePlanCard(null, { from: v })}
+          setValue={(v) => updatePlanCard(null, { from: v }, true)}
           infoColor={cardStyles.color}
+          disabled={!status.isEdit}
         />
         {(data.to || status.isHover) && (
           <ApIcon
@@ -80,8 +81,9 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
           isOpen={status.isTo}
           setOpen={(isToValue) => updateStatus({ isTo: isToValue })}
           value={data.to}
-          setValue={(v) => updatePlanCard(null, { to: v })}
+          setValue={(v) => updatePlanCard(null, { to: v }, true)}
           infoColor={cardStyles.color}
+          disabled={!status.isEdit}
         />
       </div>
       <ApEdit
@@ -90,6 +92,7 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
         value={data.name}
         setValue={(v) => updateData({ name: v })}
         onConfirm={updatePlanCard}
+        onCancel={() => updateStatus({ isEdit: false })}
         placeholder="Note?"
       />
       <ApEdit
@@ -97,6 +100,7 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
         isEdit={status.isEdit}
         value={data.description}
         setValue={(v) => updateData({ description: v })}
+        onCancel={() => updateStatus({ isEdit: false })}
         onConfirm={updatePlanCard}
         placeholder="Aboout it?"
       />
@@ -118,6 +122,7 @@ const NoteCard = ({ at, date, dateString, ...cardData }) => {
             <ApIcon icon={faPen} size={16} color={cardStyles.color} onClick={() => updateStatus({ isEdit: true })} />
           </>
         )}
+        {status.isEdit && <ApIcon icon={faPlay} size={16} color={cardStyles.color} onClick={updatePlanCard} />}
       </div>
     </div>
   );
