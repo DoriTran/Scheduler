@@ -65,13 +65,12 @@ const useStoreNotes = create(
           const newState = { ...state };
           if (to === "plans") return { ...newState, plans: newState.plans.filter((note) => note.id !== id) };
           if (to === "daily") return { ...newState, daily: newState.daily.filter((note) => note.id !== id) };
-          return {
-            ...newState,
-            notes: {
-              ...newState.notes,
-              [to]: newState.notes[to] ? newState.notes[to].filter((note) => note.id !== id).sort(sortNote) : [],
-            },
-          };
+
+          const updatedTo = newState.notes[to] ? newState.notes[to].filter((note) => note.id !== id).sort(sortNote) : [];
+          if (updatedTo.length === 0) delete newState.notes[to];
+          else newState.notes[to] = updatedTo;
+
+          return { ...newState };
         }),
 
       moveNote: (from, to, moveNote) =>
@@ -89,9 +88,13 @@ const useStoreNotes = create(
             newState.daily = newState.daily.filter((note) => note.id !== id);
           } else {
             noteToMove = newState.notes[from]?.find((note) => note.id === id);
-            newState.notes[from] = newState.notes[from]
-              ? newState.notes[from].filter((note) => note.id !== id).sort(sortNote)
+            const updatedNotes = newState.notes[from]
+              ? [...newState.notes[from].filter((note) => note.id !== id).sort(sortNote)]
               : [];
+
+            // If the source array is empty, remove the key from the notes object
+            if (updatedNotes.length === 0) delete newState.notes[from];
+            else newState.notes[from] = updatedNotes;
           }
 
           if (!noteToMove) return state;

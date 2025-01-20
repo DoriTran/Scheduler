@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable max-len */
 import { draggable, dropTargetForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import { setCustomNativeDragPreview } from "@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview";
@@ -68,6 +69,9 @@ const ApDragDrop = ({
   const [container, setContainer] = useState(null);
   const [previewPosition, setPreviewPosition] = useState({ x: 0, y: 0 });
   const [baseOffset, setBaseOffset] = useState({ x: 0, y: 0 });
+
+  const dragPropsDeps = [dragHandle, data, externalData, canDrag, onDragStart, onDrag, onDrop, onDropTargetChange, onGenerateDragPreview];
+  const dropPropsDeps = [dropData, canDrop, onCatch, onDragEnter, onDragLeave, dropEffect, dropSticky];
 
   useEffect(() => {
     const el = ref.current;
@@ -149,7 +153,7 @@ const ApDragDrop = ({
       },
       ...restDragProps,
     });
-  }, [...dragDeps, container, baseOffset]);
+  }, [...dragDeps, ...dragPropsDeps, container, baseOffset]);
 
   useEffect(() => {
     const el = ref.current;
@@ -176,7 +180,7 @@ const ApDragDrop = ({
       getIsSticky: (event) => (typeof dropSticky === "function" ? dropSticky(event) : dropSticky),
       ...restDropProps,
     });
-  }, [...dropDeps]);
+  }, [...dropDeps, ...dropPropsDeps]);
 
   if (Children.count(children) === 1) {
     return (

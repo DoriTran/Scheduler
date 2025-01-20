@@ -1,0 +1,13 @@
+@import "index.scss";
+
+.plusGap {
+  position: sticky;
+  @include flexRow;
+  bottom: 0;
+  cursor: unset !important;
+  transition: opacity 0.2s ease-in-out;
+
+  .iconWrapper {
+    width: 20px;
+  }
+}

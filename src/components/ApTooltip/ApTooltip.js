@@ -30,7 +30,7 @@ const ApTooltip = ({ tooltip, refWrap, config, offset, children, ...restProps })
       }}
       {...restProps}
     >
-      {refWrap ? <div>{children}</div> : children}
+      {refWrap ? <div {...refWrap}>{children}</div> : children}
     </Tooltip>
   );
 };

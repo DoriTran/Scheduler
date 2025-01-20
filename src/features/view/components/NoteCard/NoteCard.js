@@ -1,6 +1,6 @@
 import { ApDragDrop, ApEdit, ApIcon, ColorPicker, TimePicker } from "components";
 import { faCaretRight, faPen, faPlay, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getPeriodByTime } from "utils";
 import moment from "moment";
 import { useCardStatus, useCardStyles, useTargetClickOutside } from "hooks";
@@ -29,8 +29,16 @@ const NoteCard = ({ date, dateString, ...cardData }) => {
   const cardStyles = useCardStyles({ ...status, ...data });
   useTargetClickOutside(cardRef, () => updateStatus({ isFocus: false }));
 
+  const getData = useCallback(
+    ({ input }) => {
+      console.log(cardData); // Will now reflect the latest cardData
+      return { cardData, date: dateString, isDuplicate: input?.ctrlKey };
+    },
+    [cardData, dateString]
+  );
+
   return (
-    <ApDragDrop data={({ input }) => ({ cardData, date: dateString, isDuplicate: input.ctrlKey })}>
+    <ApDragDrop data={getData}>
       <div
         className={styles.card}
         style={cardStyles}
@@ -133,4 +141,4 @@ const NoteCard = ({ date, dateString, ...cardData }) => {
   );
 };
 
-export default NoteCard;
+export default memo(NoteCard);

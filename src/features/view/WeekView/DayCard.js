@@ -1,15 +1,17 @@
 /* eslint-disable max-len */
 import { useStoreNotes, useStoreView, useStoreConfig } from "store";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { useMemoTime } from "hooks";
-import moment from "moment";
-import { ApDragDrop, useMonitor } from "components";
+import { ApDragDrop, ApScrollbar } from "components";
 import { useShallow } from "zustand/react/shallow";
+import moment from "moment";
 import { NoteCard, TimeGap } from "../components";
 import styles from "./WeekView.module.scss";
+import PlusGap from "../components/PlusGap/PlusGap";
 
 const DayCard = ({ date, dateString }) => {
   const [isHover, setIsHover] = useState(false);
+  const [isDragOver, setIsDragOver] = useState(false);
   const notes = useStoreNotes((state) => state.notes[dateString]) || [];
   const { addNote, moveNote } = useStoreNotes(useShallow((state) => ({ addNote: state.addNote, moveNote: state.moveNote })));
   const setViewValue = useStoreView((state) => state.setViewValue);
@@ -22,18 +24,14 @@ const DayCard = ({ date, dateString }) => {
     setView("day");
   };
 
-  useEffect(() => {
-    if (notes.length > 0) {
-      console.log(notes);
-    }
-  }, [notes]);
-
   return (
     <ApDragDrop
       onCatch={({ source: { data } }) => {
         if (data.isDuplicate) addNote(dateString, data.cardData);
         else moveNote(data.date, dateString, data.cardData);
       }}
+      onDragEnter={() => setIsDragOver(true)}
+      onDragLeave={() => setIsDragOver(false)}
     >
       <div className={styles.dayCard} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
         <div
@@ -50,17 +48,26 @@ const DayCard = ({ date, dateString }) => {
           </div>
           <div className={styles.dayBody}>{date.weekDay}</div>
         </div>
-        <div className={styles.body}>
+        <ApScrollbar maxHeight="calc(100vh - 80px - 160px)" hidden className={styles.body}>
           {notes.map((note, index) => (
             <Fragment key={`${dateString}-${note.id}`}>
               <NoteCard date={date} dateString={dateString} {...note} />
               {index !== notes.length - 1 && (
-                <TimeGap from={note.to} to={notes[index + 1]?.from} onClick={() => addNote(dateString, { from: note.to })} />
+                <TimeGap
+                  from={note.to || note.from}
+                  to={notes[index + 1]?.from}
+                  onClick={() => addNote(dateString, { from: note.to })}
+                />
               )}
             </Fragment>
           ))}
-          {isHover && <TimeGap plus onClick={() => addNote(dateString, { from: notes[notes.length - 1]?.to || "00:00" })} />}
-        </div>
+          <PlusGap
+            isShow={isHover}
+            finalTimeOfDay={notes[notes.length - 1]?.to || notes[notes.length - 1]?.from}
+            dateString={dateString}
+            addNote={addNote}
+          />
+        </ApScrollbar>
       </div>
     </ApDragDrop>
   );

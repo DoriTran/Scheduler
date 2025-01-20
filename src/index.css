@@ -150,4 +150,5 @@ body {
   font-family: "Mali", 'Comic Sans MS', 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
